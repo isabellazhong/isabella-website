@@ -1,14 +1,19 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import Doodle from "../components/Doodle";
 import { HOBBIES, POLAROIDS } from "../data/about";
 import { useSnapScroll } from "../hooks/useSnapScroll";
 
 const spring = { type: "spring", stiffness: 260, damping: 26 } as const;
+const SPREAD = 4;
 
 export default function About() {
   useSnapScroll();
   const [active, setActive] = useState<string | null>(null);
+  const pileRef = useRef<HTMLDivElement>(null);
+  const pileInView = useInView(pileRef, { amount: 0.7 });
+  const reduceMotion = useReducedMotion();
+  const spread = pileInView && !reduceMotion;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -44,27 +49,33 @@ export default function About() {
 
       <section className="about-polaroids snap-start">
         <h2 className="display">get to know me a bit better...</h2>
-        <div className="pol-pile">
+        <div className="pol-pile" ref={pileRef}>
           {POLAROIDS.map(
             (p) =>
               active !== p.id && (
-                <motion.button
+                <motion.div
                   key={p.id}
-                  layoutId={p.id}
-                  className="polaroid"
-                  style={{ rotate: p.rotate, x: p.x, y: p.y }}
+                  className="polaroid-slot"
+                  animate={{ x: spread ? p.x * SPREAD : p.x, y: spread ? p.y * SPREAD : p.y }}
                   transition={spring}
-                  whileHover={{ y: p.y - 10 }}
-                  onClick={() => setActive(p.id)}
-                  aria-label={`look closer at the polaroid: ${p.title}`}
+                  whileHover={{ y: (spread ? p.y * SPREAD : p.y) - 10 }}
                 >
-                  <img src={p.src} alt={p.title} draggable={false} />
-                  <span className="pol-caption">
-                    {p.title}
-                    <br />
-                    <small>{p.date}</small>
-                  </span>
-                </motion.button>
+                  <motion.button
+                    layoutId={p.id}
+                    className="polaroid"
+                    style={{ rotate: p.rotate }}
+                    transition={spring}
+                    onClick={() => setActive(p.id)}
+                    aria-label={`look closer at the polaroid: ${p.title}`}
+                  >
+                    <img src={p.src} alt={p.title} draggable={false} />
+                    <span className="pol-caption">
+                      {p.title}
+                      <br />
+                      <small>{p.date}</small>
+                    </span>
+                  </motion.button>
+                </motion.div>
               ),
           )}
           <Doodle kind="arrow" className="doodle-abs" size={46} rotate={16} style={{ top: "-2.4rem", right: "-3.4rem" }} />

@@ -21,6 +21,7 @@ export default function Contact() {
   }, []);
 
   const stopPour = () => {
+    setFrame(0)
     if (timer.current) {
       window.clearInterval(timer.current);
       timer.current = null;
@@ -37,7 +38,6 @@ export default function Contact() {
     timer.current = window.setInterval(() => {
       setFrame((f) => {
         if (f >= COFFEE_FRAMES - 1) {
-          stopPour();
           return f;
         }
         return f + 1;
@@ -95,10 +95,8 @@ export default function Contact() {
           <img
             src={coffeeSrc(frame)}
             alt="hand-drawn coffee cup; click and hold to fill it"
-            onPointerDown={startPour}
-            onPointerUp={stopPour}
-            onPointerLeave={stopPour}
-            onPointerCancel={stopPour}
+            onMouseEnter={startPour}
+            onMouseLeave={stopPour}
             onContextMenu={(e) => e.preventDefault()}
             draggable={false}
           />
