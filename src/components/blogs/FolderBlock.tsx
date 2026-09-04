@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { BlogFolder } from "../../entities";
+import type { BlogFolder } from "../../types";
 
 /** Folder-shaped block on /blogs; the tab shape is pure CSS. */
 export function FolderBlock({ folder }: { folder: BlogFolder }) {

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { ArrowRight } from "@phosphor-icons/react";
-import type { BlogFolder, BlogPost } from "../../entities";
+import type { BlogFolder, BlogPost } from "../../types";
 import { formatDate } from "../../lib/format";
 
 /** One vertically stacked post block inside a folder. */

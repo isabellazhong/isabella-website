@@ -1,4 +1,4 @@
-import type { ImageObject } from "../../entities";
+import type { ImageObject } from "../../types";
 import { SingleImageView } from "./SingleImageView";
 import { CarouselView } from "./CarouselView";
 import { SpringStackView } from "./SpringStackView";

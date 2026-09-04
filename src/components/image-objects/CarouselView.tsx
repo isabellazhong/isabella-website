@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import type { Carousel } from "../../entities";
+import type { Carousel } from "../../types";
 
 export function CarouselView({ object, className }: { object: Carousel; className?: string }) {
   const [index, setIndex] = useState(0);

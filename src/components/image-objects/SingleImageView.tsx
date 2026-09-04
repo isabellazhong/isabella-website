@@ -1,4 +1,4 @@
-import type { SingleImage } from "../../entities";
+import type { SingleImage } from "../../types";
 
 export function SingleImageView({ object, className }: { object: SingleImage; className?: string }) {
   return (

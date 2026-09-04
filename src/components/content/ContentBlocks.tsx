@@ -1,4 +1,4 @@
-import type { ContentBlock } from "../../entities";
+import type { ContentBlock } from "../../types";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 

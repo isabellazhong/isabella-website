@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ImageObject } from "../../entities";
+import type { ImageObject } from "../../types";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
 
 export interface TextImageBlockProps {

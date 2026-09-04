@@ -16,7 +16,7 @@ export function LandingSection() {
     <section className="relative flex min-h-[calc(100dvh-4rem)] snap-start items-center overflow-hidden">
       <div className="absolute inset-0" aria-hidden="true">
         {landing.background ? (
-          <ImageObjectView object={landing.background} className="h-full w-full object-cover" />
+          <ImageObjectView object={landing.background} className="h-full w-full translate-x-[-20%] scale-[0.6] object-cover" />
         ) : (
           <AnimationSlot className="h-full w-full" />
         )}
@@ -29,7 +29,8 @@ export function LandingSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="font-display text-5xl tracking-tight md:text-6xl">{landing.headline}</h1>
+          <h1 className="font-display text-5xl tracking-tight md:text-2xl text-accent-ink">{landing.headline}</h1>
+          <h1 className="font-display text-5xl tracking-tight md:text-9xl text-accent-ink">Isabella</h1>
           <p className="max-w-[40ch] text-lg leading-relaxed text-ink-soft">{landing.subtext}</p>
           <Link
             to="/projects"

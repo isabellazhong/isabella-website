@@ -1,4 +1,4 @@
-import type { BlogFolder } from "../entities";
+import type { BlogFolder } from "../types";
 
 /**
  * Folders group posts by section on /blogs. Opening a folder lists its posts

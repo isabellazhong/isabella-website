@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { ArrowRight } from "@phosphor-icons/react";
-import type { Project } from "../../entities";
+import type { Project } from "../../types";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
 
 export interface ProjectBlockProps {

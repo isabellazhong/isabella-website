@@ -1,5 +1,5 @@
 import { Reveal } from "../motion/Reveal";
-import type { ExperienceEntry } from "../../entities";
+import type { ExperienceEntry } from "../../types";
 
 /** Vertical timeline; ongoing roles (end === null) get the accent marker. */
 export function Timeline({ entries }: { entries: ExperienceEntry[] }) {

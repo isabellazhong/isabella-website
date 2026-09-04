@@ -1,4 +1,4 @@
-import type { ExperienceEntry } from "../entities";
+import type { ExperienceEntry } from "../types";
 
 /** Most recent first. Add a new internship by prepending an entry. */
 export const experiences: ExperienceEntry[] = [

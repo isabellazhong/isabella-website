@@ -1,16 +1,20 @@
-import type { ContactLink, Hobby, ImageObject, LandingContent } from "../entities";
+import type { ContactLink, Hobby, ImageObject, LandingContent } from "../types";
 
 export const SITE_NAME = "Isabella Zhong";
 
 export const landing: LandingContent = {
-  headline: "Hi, I'm Isabella.",
+  headline: "Hello, I'm",
   subtext: "Replace this with one line about who you are and what you build.",
-  /*
-   * When your animation frames are ready, drop them in /public/animations
-   * and swap this for:
-   *   { kind: "frame-sequence", frames: ["/animations/landing/frame_00000.png", ...], fps: 12 }
-   */
-  background: null,
+  background: {
+    kind: "frame-sequence",
+    frames: Array.from(
+      { length: 15 },
+      (_, i) => `/animations/landing/frame_${String(i + 1).padStart(2, "0")}.png`,
+    ),
+    fps: 12,
+    holdFirstMs: 1000,
+    holdLastMs: 1500,
+  },
 };
 
 export const aboutParagraphs = [

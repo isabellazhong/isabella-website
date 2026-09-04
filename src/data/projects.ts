@@ -1,4 +1,4 @@
-import type { Project } from "../entities";
+import type { Project } from "../types";
 
 /**
  * Each project renders as a half-screen block on /projects (alternating text

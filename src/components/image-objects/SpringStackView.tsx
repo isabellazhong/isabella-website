@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import type { SpringStack } from "../../entities";
+import type { SpringStack } from "../../types";
 
 /** Fanned stack of images; clicking springs the top card to the back. */
 export function SpringStackView({ object, className }: { object: SpringStack; className?: string }) {

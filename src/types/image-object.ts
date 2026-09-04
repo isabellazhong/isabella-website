@@ -52,6 +52,10 @@ export interface FrameSequence extends ImageObjectBase {
   fps?: number;
   /** Restart from the first frame when finished. Defaults to true. */
   loop?: boolean;
+  /** How long to hold the first frame, in ms. Defaults to the normal per-frame interval (1000 / fps). */
+  holdFirstMs?: number;
+  /** How long to hold the last frame, in ms. Defaults to the normal per-frame interval (1000 / fps). */
+  holdLastMs?: number;
 }
 
 export type ImageObject = SingleImage | Carousel | SpringStack | FrameSequence;
