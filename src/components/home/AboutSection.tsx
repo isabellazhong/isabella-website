@@ -1,4 +1,5 @@
 import { Reveal } from "../motion/Reveal";
+import { CloudScene } from "../motion/CloudScene";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
 import { aboutParagraphs, aboutPortrait, catPhoto, photoScatterShowcase } from "../../data/profile";
@@ -8,15 +9,18 @@ export function AboutSection() {
   return (
     <section id="about" className="snap-start py-24">
       <div className="container-page flex flex-col gap-20">
-        <Reveal>
-          <TextImageBlock textSide="left" image={aboutPortrait} title="About me">
-            {aboutParagraphs.map((paragraph, i) => (
-              <p key={i} className="leading-relaxed text-ink-soft">
-                {paragraph}
-              </p>
-            ))}
-          </TextImageBlock>
-        </Reveal>
+        <div className="relative">
+          <CloudScene />
+          <Reveal className="relative z-10">
+            <TextImageBlock textSide="left" image={aboutPortrait} title="About me">
+              {aboutParagraphs.map((paragraph, i) => (
+                <p key={i} className="leading-relaxed text-ink-soft">
+                  {paragraph}
+                </p>
+              ))}
+            </TextImageBlock>
+          </Reveal>
+        </div>
         <Reveal>
           <ImageObjectView object={photoScatterShowcase} />
         </Reveal>
