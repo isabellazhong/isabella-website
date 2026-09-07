@@ -24,6 +24,8 @@ export interface TextImageBlockProps {
   /** Vertical position of the text against the image in "left"/"right" layouts. Defaults to "center". */
   position?: TextVerticalPosition;
   align?: "text-left" | "text-center" | "text-right";
+  /** Tailwind classes (e.g. width/max-width) applied to the image, for sizing it independently of the text column. */
+  imageClassName?: string;
 }
 
 /**
@@ -40,6 +42,7 @@ export function TextImageBlock({
   className,
   align = "text-left",
   position = "center",
+  imageClassName,
 }: TextImageBlockProps) {
   const textContent = (
     <>
@@ -53,7 +56,7 @@ export function TextImageBlock({
       <div className={`flex flex-col gap-8 ${className ?? ""}`}>
         <div className={`flex flex-col gap-4 ${textSide === "top" ? "order-1" : "order-2"}`}>{textContent}</div>
         <div className={textSide === "top" ? "order-2" : "order-1"}>
-          <ImageObjectView object={image} />
+          <ImageObjectView object={image} className={imageClassName} />
         </div>
       </div>
     );
@@ -68,7 +71,7 @@ export function TextImageBlock({
         {textContent}
       </div>
       <div className={`order-2 ${imageOrder}`}>
-        <ImageObjectView object={image} />
+        <ImageObjectView object={image} className={imageClassName} />
       </div>
     </div>
   );

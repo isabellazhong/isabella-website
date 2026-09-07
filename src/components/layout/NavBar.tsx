@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router";
 import { List, X } from "@phosphor-icons/react";
 import { ThemeToggle } from "./ThemeToggle";
@@ -13,6 +13,28 @@ const NAV_ITEMS = [
 
 export function NavBar() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrolledDown = currentScrollY > lastScrollY.current;
+      const pastThreshold = currentScrollY > 80;
+
+      setHidden(scrolledDown && pastThreshold);
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (open) setHidden(false);
+  }, [open]);
 
   const desktopLink = ({ isActive }: { isActive: boolean }) =>
     `font-display text-sm transition-colors ${
@@ -25,7 +47,11 @@ export function NavBar() {
     `font-display rounded-full px-4 py-2 text-sm ${isActive ? "text-ink" : "text-accent-ink"}`;
 
   return (
-    <header className="sticky top-0 z-40">
+    <header
+      className={`sticky top-0 z-40 transition-transform duration-300 ease-in-out ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="container-page relative flex h-16 items-center justify-center">
         <nav className="hidden items-center gap-20 md:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => (

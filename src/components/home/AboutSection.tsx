@@ -21,7 +21,8 @@ export function AboutSection() {
           <ImageObjectView object={photoScatterShowcase} />
         </Reveal>
         <Reveal>
-          <TextImageBlock textSide="right" image={catPhoto} title="I also have a cat" titleSize="text-5xl" align="text-right" position="top">
+          <TextImageBlock textSide="right" image={catPhoto} title="I also have a cat" 
+          titleSize="text-5xl" align="text-right" position="top" imageClassName="aspect-[4/5]">
             <p className="leading-relaxed text-ink-soft text-right">
               Replace this with a short intro to your cat: name, personality, favorite mischief.
             </p>
