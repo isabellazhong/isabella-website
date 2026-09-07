@@ -4,7 +4,7 @@ export const SITE_NAME = "Isabella Zhong";
 
 export const landing: LandingContent = {
   headline: "Hello, I'm",
-  subtext: "Replace this with one line about who you are and what you build.",
+  subtext: "钟佳妮",
   background: {
     kind: "frame-sequence",
     frames: Array.from(
@@ -24,13 +24,36 @@ export const aboutParagraphs = [
 
 /** Visual next to the about text. Swap the placeholder photos for your own. */
 export const aboutPortrait: ImageObject = {
-  kind: "spring-stack",
-  images: [
-    { src: "https://picsum.photos/seed/isabella-about-1/900/1200", alt: "Placeholder portrait photo" },
-    { src: "https://picsum.photos/seed/isabella-about-2/900/1200", alt: "Placeholder photo two" },
-    { src: "https://picsum.photos/seed/isabella-about-3/900/1200", alt: "Placeholder photo three" },
-  ],
+  kind: "single",
+  image: 
+    { src: "/photos/about_me.png", alt: "my photo" },
 };
+
+/** My cat, shown as a plain image with no polaroid frame. */
+export const catPhoto: ImageObject = {
+  kind: "single",
+  variant: "plain",
+  image: { src: "/photos/cat.png", alt: "my cat" },
+};
+
+/**
+ * Five photos that pile up, then scatter into a loose ring around the
+ * headline as this section scrolls into view. Swap the placeholder photos
+ * for your own.
+ */
+export const photoScatterShowcase: ImageObject = {
+  kind: "photo-scatter",
+  images: [
+    { src: "https://picsum.photos/seed/isabella-scatter-1/600/750", alt: "Placeholder photo one" },
+    { src: "https://picsum.photos/seed/isabella-scatter-2/600/750", alt: "Placeholder photo two" },
+    { src: "https://picsum.photos/seed/isabella-scatter-3/600/750", alt: "Placeholder photo three" },
+    { src: "https://picsum.photos/seed/isabella-scatter-4/600/750", alt: "Placeholder photo four" },
+    { src: "https://picsum.photos/seed/isabella-scatter-5/600/750", alt: "Placeholder photo five" },
+  ],
+  text: "Some of my artworks!",
+};
+
+
 
 export const hobbies: Hobby[] = [
   { id: "hobby-1", name: "Hobby one", blurb: "One line on what it is and why you love it." },

@@ -36,16 +36,17 @@
 }
 
 :root {
-  --background:#dee1e8; 
+  --background:#FAF9F6; 
   --surface: #fafaf9;
   --surface-raised: #ffffff;
   --ink: #1b1b1c;
   --ink-soft: #5d5d66;
   --line: #e5e4e1;
-  --accent: #b4502a;
+  --accent: #c21105;
   --accent-ink: #000000;
   --font-display-stack: "Satoshi", system-ui, "Segoe UI", sans-serif;
   --font-body-stack: "Satoshi", system-ui, "Segoe UI", sans-serif;
+  --text-grad: linear-gradient(90deg, var(--color-ink), var(--color-ink-soft));
 }
 
 /* Dark theme. Applied via the data-theme attribute on <html>, set before
@@ -75,6 +76,10 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --font-body: var(--font-body-stack);
+  /* Fills the gap in Tailwind's default scale (xl, 2xl, ...9xl) so titleSize
+     can use a uniform text-1xl..text-9xl progression. */
+  --text-1xl: var(--text-xl);
+  --text-1xl--line-height: var(--text-xl--line-height);
 }
 
 /* Headers and titles: Satoshi Medium. Defined as a custom utility (instead of
@@ -146,5 +151,42 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .animation-slot {
     animation: slot-drift 18s ease-in-out infinite alternate;
+  }
+}
+
+.gradient-text {
+  background-image: var(--text-grad);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Polaroid-style frame for photo components: a white paper border with a
+   deeper strip at the bottom (like the caption area of a real polaroid) and
+   a layered shadow for a bit of lifted, 3-D depth. White is hardcoded rather
+   than a theme token so framed photos read the same in light and dark mode,
+   the way a physical print would. */
+@utility polaroid-frame {
+  display: block;
+  background: #ffffff;
+  padding: 0.625rem 0.625rem 2rem;
+  border-radius: 0.2rem;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 10px 20px -8px rgba(0, 0, 0, 0.25),
+    0 25px 40px -15px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 2px 3px rgba(0, 0, 0, 0.1),
+      0 16px 26px -10px rgba(0, 0, 0, 0.28),
+      0 34px 54px -18px rgba(0, 0, 0, 0.32);
   }
 }

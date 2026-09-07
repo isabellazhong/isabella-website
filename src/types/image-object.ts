@@ -26,6 +26,8 @@ export interface ImageObjectBase {
 export interface SingleImage extends ImageObjectBase {
   kind: "single";
   image: ImageAsset;
+  /** "polaroid" (default) frames the photo; "plain" renders the image itself with no frame. */
+  variant?: "polaroid" | "plain";
 }
 
 /** An arrow-driven carousel that fades between images. */
@@ -58,4 +60,17 @@ export interface FrameSequence extends ImageObjectBase {
   holdLastMs?: number;
 }
 
-export type ImageObject = SingleImage | Carousel | SpringStack | FrameSequence;
+/**
+ * Five photos that pile up, then scatter into a loose, asymmetric ring
+ * around a headline as this object scrolls into view (see
+ * PhotoScatterReveal). The headline is revealed only once the photos have
+ * settled into place.
+ */
+export interface PhotoScatter extends ImageObjectBase {
+  kind: "photo-scatter";
+  images: [ImageAsset, ImageAsset, ImageAsset, ImageAsset, ImageAsset];
+  /** Headline revealed at the center once the photos finish scattering. */
+  text: string;
+}
+
+export type ImageObject = SingleImage | Carousel | SpringStack | FrameSequence | PhotoScatter;

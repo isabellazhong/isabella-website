@@ -1,12 +1,25 @@
 import type { SingleImage } from "../../types";
 
 export function SingleImageView({ object, className }: { object: SingleImage; className?: string }) {
+  if (object.variant === "plain") {
+    return (
+      <img
+        src={object.image.src}
+        alt={object.image.alt}
+        loading="lazy"
+        className={`max-h-200 max-w-full object-contain ${className ?? ""}`}
+      />
+    );
+  }
+
   return (
-    <img
-      src={object.image.src}
-      alt={object.image.alt}
-      loading="lazy"
-      className={`aspect-[4/3] w-full rounded-2xl border border-line object-cover ${className ?? ""}`}
-    />
+    <div className={`polaroid-frame inline-block ${className ?? ""}`}>
+      <img
+        src={object.image.src}
+        alt={object.image.alt}
+        loading="lazy"
+        className="max-h-200 max-w-full object-contain"
+      />
+    </div>
   );
 }

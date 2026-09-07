@@ -33,7 +33,14 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
             );
           case "text-image":
             return (
-              <TextImageBlock key={key} textSide={block.textSide} image={block.image} title={block.title}>
+              <TextImageBlock
+                key={key}
+                textSide={block.textSide}
+                image={block.image}
+                title={block.title}
+                titleSize={block.titleSize}
+                position={block.position}
+              >
                 <p className="leading-relaxed text-ink-soft">{block.text}</p>
               </TextImageBlock>
             );

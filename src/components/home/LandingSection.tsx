@@ -1,5 +1,3 @@
-import { Link } from "react-router";
-import { ArrowRight } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
 import { landing } from "../../data/profile";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
@@ -16,7 +14,7 @@ export function LandingSection() {
     <section className="relative flex min-h-[calc(100dvh-4rem)] snap-start items-center overflow-hidden">
       <div className="absolute inset-0" aria-hidden="true">
         {landing.background ? (
-          <ImageObjectView object={landing.background} className="h-full w-full translate-x-[-20%] scale-[0.6] object-cover" />
+          <ImageObjectView object={landing.background} className="h-full w-full translate-x-[20%]  object-contain md:translate-x-[-20%] md:scale-[0.7]" />
         ) : (
           <AnimationSlot className="h-full w-full" />
         )}
@@ -30,15 +28,8 @@ export function LandingSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <h1 className="font-display text-5xl tracking-tight md:text-2xl text-accent-ink">{landing.headline}</h1>
-          <h1 className="font-display text-5xl tracking-tight md:text-9xl text-accent-ink">Isabella</h1>
-          <p className="max-w-[40ch] text-lg leading-relaxed text-ink-soft">{landing.subtext}</p>
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-ink transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-          >
-            See my work
-            <ArrowRight size={16} weight="bold" />
-          </Link>
+          <h1 className="font-display text-9xl tracking-tight md:text-9xl text-accent-ink gradient-text">Isabella</h1>
+          <p className="max-w-[40ch] text-6xl leading-relaxed text-ink-soft">{landing.subtext}</p>
         </motion.div>
       </div>
     </section>

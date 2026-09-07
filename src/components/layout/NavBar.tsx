@@ -17,8 +17,8 @@ export function NavBar() {
   const desktopLink = ({ isActive }: { isActive: boolean }) =>
     `font-display text-sm transition-colors ${
       isActive
-        ? "text-ink underline decoration-accent decoration-2 underline-offset-8"
-        : "text-accent-ink hover:text-ink"
+        ? "text-accent"
+        : "hover:text-ink"
     }`;
 
   const mobileLink = ({ isActive }: { isActive: boolean }) =>

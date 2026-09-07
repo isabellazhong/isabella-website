@@ -24,7 +24,7 @@ export function SpringStackView({ object, className }: { object: SpringStack; cl
         return (
           <motion.span
             key={imageIndex}
-            className="absolute inset-0 block overflow-hidden rounded-2xl border border-line bg-surface-raised"
+            className="polaroid-frame absolute inset-0"
             style={{ zIndex: images.length - position }}
             animate={{
               rotate: position * 3 - 2,
@@ -34,7 +34,13 @@ export function SpringStackView({ object, className }: { object: SpringStack; cl
             }}
             transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 200, damping: 22 }}
           >
-            <img src={image.src} alt={image.alt} loading="lazy" draggable={false} className="h-full w-full object-cover" />
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              draggable={false}
+              className="h-full w-full rounded-lg object-cover"
+            />
           </motion.span>
         );
       })}
