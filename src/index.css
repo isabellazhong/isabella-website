@@ -36,14 +36,15 @@
 }
 
 :root {
-  --background:#FAF9F6; 
-  --surface: #fafaf9;
+  --surface: #FAF9F6;
+  --surface-accent: #013d58; 
   --surface-raised: #ffffff;
   --ink: #1b1b1c;
   --ink-soft: #5d5d66;
   --line: #e5e4e1;
   --accent: #c21105;
   --accent-ink: #000000;
+  --footer-ink: #fafaf9;
   --font-display-stack: "Satoshi", system-ui, "Segoe UI", sans-serif;
   --font-body-stack: "Satoshi", system-ui, "Segoe UI", sans-serif;
   --text-grad: linear-gradient(90deg, var(--color-ink), var(--color-ink-soft));
@@ -59,6 +60,7 @@
   color-scheme: dark;
   --background:#19191a;
   --surface: #141416;
+  --surface-accent: #013d58; 
   --surface-raised: #1d1d21;
   --ink: #f1f1ef;
   --ink-soft: #b2b2b2;
@@ -69,12 +71,15 @@
 
 @theme inline {
   --color-surface: var(--surface);
+  --color-surface-accent: var(--surface-accent);
   --color-surface-raised: var(--surface-raised);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-footer: var(--footer-bg);
+  --color-footer-ink: var(--footer-ink);
   --font-body: var(--font-body-stack);
   /* Fills the gap in Tailwind's default scale (xl, 2xl, ...9xl) so titleSize
      can use a uniform text-1xl..text-9xl progression. */
@@ -101,12 +106,21 @@ html {
   }
 }
 
-/* Scroll snap is active only while the home page is mounted (HomePage toggles
-   this class). `proximity` gives the requested behavior: the viewport snaps
-   when released near the landing/about boundary, but scrolls freely once you
-   move past it. */
-html.home-snap {
+/* `proximity` snapping: it only bites when a scroll comes to rest near a snap
+   point, so ordinary reading scroll is untouched. It gives the home page its
+   landing/about boundary snap, and it gates the footer site-wide. */
+html {
   scroll-snap-type: y proximity;
+}
+
+/* The footer gate. Both edges align to the bottom of the viewport, so the
+   content's own resting point is the one where the footer is still fully
+   hidden: a light flick at the end of a page settles back onto it, and it
+   takes a longer, deliberate scroll to carry past it to the footer's snap
+   point at the true bottom of the page. */
+main,
+footer {
+  scroll-snap-align: end;
 }
 
 body {
@@ -114,10 +128,29 @@ body {
   color: var(--ink);
   font-family: var(--font-body-stack);
   -webkit-font-smoothing: antialiased;
+  /* Decorative elements (e.g. CloudScene) deliberately bleed past their
+     container edges; clip the resulting horizontal overflow at the page
+     level so it doesn't add a scrollable region. */
+  overflow-x: hidden;
 }
 
 @utility container-page {
   @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Whiteboard surface for the projects page: a faint dot grid the graph and the
+   pinned info card both sit on, so the two halves read as one board rather
+   than two panels. The dot color is derived from --ink, so it follows the
+   theme automatically. */
+@utility whiteboard {
+  background-color: var(--background);
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--ink) 13%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  background-position: center;
 }
 
 /* Placeholder background for the landing animation slot. Replaced by a real

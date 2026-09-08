@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { projects } from "../data/projects";
+import { formatDate } from "../lib/format";
 import { ContentBlocks } from "../components/content/ContentBlocks";
+import { SkillList } from "../components/projects/SkillList";
 import NotFoundPage from "./NotFoundPage";
 
 export default function ProjectDetailPage() {
@@ -19,18 +21,14 @@ export default function ProjectDetailPage() {
       <header className="flex flex-col gap-3">
         <h1 className="font-display text-4xl tracking-tight md:text-5xl">{project.title}</h1>
         <p className="max-w-[65ch] text-lg leading-relaxed text-ink-soft">{project.tagline}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          {project.year && (
-            <span className="rounded-full border border-line px-3 py-1 text-xs text-ink-soft">{project.year}</span>
-          )}
-          {project.tech?.map((tech) => (
-            <span key={tech} className="rounded-full border border-line px-3 py-1 text-xs text-ink-soft">
-              {tech}
-            </span>
-          ))}
+        <p className="font-display text-[0.65rem] tracking-[0.18em] text-ink-soft uppercase">
+          Created {formatDate(project.date)}
+        </p>
+        <div className="mt-3 max-w-xl">
+          <SkillList skills={project.skills} />
         </div>
         {project.links && project.links.length > 0 && (
-          <div className="mt-1 flex flex-wrap gap-4">
+          <div className="mt-3 flex flex-wrap gap-4">
             {project.links.map((link) => (
               <a
                 key={link.url}

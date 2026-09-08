@@ -30,14 +30,14 @@ const LAYERS: CloudLayerConfig[] = [
   {
     src: "/animations/cloud_comp/btm_left_back.PNG",
     side: "left",
-    className: "-bottom-[12%] -left-[3%] w-[clamp(190px,38%,380px)]",
+    className: "-bottom-[32%] -left-[3%] w-[clamp(190px,38%,380px)]",
     shadow: "0 14px 20px rgba(15,15,20,0.16)",
     zIndex: 1,
   },
   {
     src: "/animations/cloud_comp/btm_left_front.PNG",
     side: "left",
-    className: "-bottom-[12%] -left-[8%] w-[clamp(210px,42%,420px)]",
+    className: "-bottom-[32%] -left-[8%] w-[clamp(210px,42%,420px)]",
     shadow: "0 24px 30px rgba(15,15,20,0.26)",
     zIndex: 2,
   },

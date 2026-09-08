@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { NavBar } from "./components/layout/NavBar";
-import { SITE_NAME } from "./data/profile";
+import { Footer } from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
 import ExperiencePage from "./pages/ExperiencePage";
 import ProjectsPage from "./pages/ProjectsPage";
@@ -38,12 +38,7 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <footer className="border-t border-line">
-        <div className="container-page flex h-16 items-center justify-between text-sm text-ink-soft">
-          <span>{SITE_NAME}</span>
-          <span>{new Date().getFullYear()}</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
