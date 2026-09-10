@@ -51,11 +51,11 @@ export const catParagraph: string = "Her name is Luna! It took me forever to con
 export const photoScatterShowcase: ImageObject = {
   kind: "photo-scatter",
   images: [
-    { src: "public/photos/art/joey.jpeg", alt: "Placeholder photo one" },
-    { src: "public/photos/art/koi.jpg", alt: "Placeholder photo two" },
-    { src: "public/photos/art/landscape.jpg", alt: "Placeholder photo three" },
-    { src: "public/photos/art/plate.jpg", alt: "Placeholder photo four" },
-    { src: "public/photos/art/sketch.jpg", alt: "Placeholder photo five" },
+    { src: "/photos/art/joey.jpeg", alt: "Placeholder photo one" },
+    { src: "/photos/art/koi.jpg", alt: "Placeholder photo two" },
+    { src: "/photos/art/landscape.jpg", alt: "Placeholder photo three" },
+    { src: "/photos/art/plate.jpg", alt: "Placeholder photo four" },
+    { src: "/photos/art/sketch.jpg", alt: "Placeholder photo five" },
   ],
   text: "Some of my artworks!",
 };
