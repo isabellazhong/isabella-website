@@ -17,9 +17,14 @@ export const landing: LandingContent = {
   },
 };
 
+/** Plain strings; `[label](href)` becomes an inline link when rendered. */
 export const aboutParagraphs = [
-  "Replace this paragraph with a short introduction: where you study or work, what you care about, and what you are building right now.",
-  "A second paragraph can go deeper: how you got into your field, and what you are exploring outside of it.",
+  `My name is Isabella and I am currently in my third year studying Computer Science and Cognitive Science double degree @ the University of Toronto. 
+  I have been very interested into AI/ML as of late and have been going in depth on the fundamentals such as transformers, optimizers, weight decay functions, etc. 
+  You can follow my progress [here](/blogs) :) 
+  `, `Apart from work and academics, I love unleashing my creative side in forms of paintings, sketches, etc. In fact, the animation in the landing page is drawn by me!
+   (which takes a lot longer than it looks... I hold a lot of respect for animators). I also enjoy cooking and watching tons of movies!! 
+  `
 ];
 
 /** Visual next to the about text. Swap the placeholder photos for your own. */
@@ -36,6 +41,8 @@ export const catPhoto: ImageObject = {
   image: { src: "/photos/cat.png", alt: "my cat" },
 };
 
+export const catParagraph: string = "Her name is Luna! It took me forever to convince my parents to get her."
+
 /**
  * Five photos that pile up, then scatter into a loose ring around the
  * headline as this section scrolls into view. Swap the placeholder photos
@@ -44,11 +51,11 @@ export const catPhoto: ImageObject = {
 export const photoScatterShowcase: ImageObject = {
   kind: "photo-scatter",
   images: [
-    { src: "https://picsum.photos/seed/isabella-scatter-1/600/750", alt: "Placeholder photo one" },
-    { src: "https://picsum.photos/seed/isabella-scatter-2/600/750", alt: "Placeholder photo two" },
-    { src: "https://picsum.photos/seed/isabella-scatter-3/600/750", alt: "Placeholder photo three" },
-    { src: "https://picsum.photos/seed/isabella-scatter-4/600/750", alt: "Placeholder photo four" },
-    { src: "https://picsum.photos/seed/isabella-scatter-5/600/750", alt: "Placeholder photo five" },
+    { src: "public/photos/art/joey.jpeg", alt: "Placeholder photo one" },
+    { src: "public/photos/art/koi.jpg", alt: "Placeholder photo two" },
+    { src: "public/photos/art/landscape.jpg", alt: "Placeholder photo three" },
+    { src: "public/photos/art/plate.jpg", alt: "Placeholder photo four" },
+    { src: "public/photos/art/sketch.jpg", alt: "Placeholder photo five" },
   ],
   text: "Some of my artworks!",
 };
@@ -74,14 +81,14 @@ export const contactLinks: ContactLink[] = [
     id: "github",
     label: "GitHub",
     value: "@your-handle",
-    url: "https://github.com",
+    url: "https://github.com/isabellazhong",
     icon: "github",
   },
   {
     id: "linkedin",
     label: "LinkedIn",
     value: "your-name",
-    url: "https://linkedin.com",
+    url: "www.linkedin.com/in/isabella-zhong",
     icon: "linkedin",
   },
 ];

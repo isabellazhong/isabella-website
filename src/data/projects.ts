@@ -12,10 +12,10 @@ import type { ProjectGraphOptions } from "../lib/graph/ProjectGraph";
  */
 export const projects: Project[] = [
   {
-    id: "synapse",
-    title: "Synapse",
-    tagline: "A living map of everything I have read, drawn from my own notes.",
-    date: "2026-04-18",
+    id: "marker",
+    title: "Marker",
+    tagline: "Study more efficently by removing the work you don't have to do.",
+    date: "2025-07-20",
     description:
       "Synapse turns a folder of markdown notes into a browsable knowledge graph. It parses wiki-links at build time, lays the result out with a force simulation, and renders the whole thing as one canvas you can pan, zoom and search. The interesting problem was keeping 4,000 nodes at 60fps without giving up crisp text.",
     skills: [

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { ImageAsset } from "../../types";
 
@@ -25,10 +25,10 @@ export interface PhotoScatterRevealProps {
  * look CAD-drawn.
  */
 const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: number; rotate: number }[] = [
-  { pileX: -1.3, pileY: -0.8, pileRotate: -9, x: -46.1, y: -31.3, rotate: -11 },
+  { pileX: -1.3, pileY: -0.8, pileRotate: -9, x: -55.1, y: -31.3, rotate: -11 },
   { pileX: 1.0, pileY: 0.7, pileRotate: 7, x: 42.8, y: -39.5, rotate: 8 },
-  { pileX: -0.7, pileY: 1.2, pileRotate: -15, x: -56.7, y: 14.0, rotate: 10 },
-  { pileX: 1.3, pileY: -1.0, pileRotate: 12, x: 51.0, y: 19.7, rotate: -14 },
+  { pileX: -0.7, pileY: 1.2, pileRotate: -15, x: -60.7, y: 14.0, rotate: 10 },
+  { pileX: 1.3, pileY: -1.0, pileRotate: 12, x: 56.0, y: 19.7, rotate: -14 },
   { pileX: 0, pileY: 1.5, pileRotate: 3, x: 4.1, y: 47.7, rotate: 5 },
 ];
 
@@ -36,6 +36,15 @@ const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: 
     reveal starts a beat after, so it never appears mid-toss. */
 const SCATTER_END = 0.1;
 const TEXT_START = 0.1;
+
+/**
+ * Base size for the scattered frames. The polaroid-frame utility lays its
+ * paper border out in em, so this one value scales the whole border; in
+ * container units like the photos themselves, so border and photo shrink
+ * together instead of the border holding a fixed rem width and swallowing
+ * the print as the layout narrows.
+ */
+const FRAME_BASE: CSSProperties = { fontSize: "4.8cqw" };
 
 export function PhotoScatterReveal({ images, children, className }: PhotoScatterRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,12 +89,18 @@ function Photo({
   const scale = useTransform(progress, [0, SCATTER_END], [0.5, 1]);
 
   const style = reduce
-    ? { transform: `translate(${layout.x}cqw, ${layout.y}cqw) rotate(${layout.rotate}deg)`, zIndex }
-    : { x, y, rotate, scale, zIndex };
+    ? { ...FRAME_BASE, transform: `translate(${layout.x}cqw, ${layout.y}cqw) rotate(${layout.rotate}deg)`, zIndex }
+    : { ...FRAME_BASE, x, y, rotate, scale, zIndex };
 
   return (
-    <motion.div className="polaroid-frame absolute w-[33cqw]" style={style}>
-      <img src={image.src} alt={image.alt} loading="lazy" draggable={false} className="aspect-3/4 w-full object-cover" />
+    <motion.div className="polaroid-frame absolute" style={style}>
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        draggable={false}
+        className="h-auto w-auto max-w-[33cqw] max-h-[44cqw]"
+      />
     </motion.div>
   );
 }

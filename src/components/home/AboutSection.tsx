@@ -2,7 +2,8 @@ import { Reveal } from "../motion/Reveal";
 import { CloudScene } from "../motion/CloudScene";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
-import { aboutParagraphs, aboutPortrait, catPhoto, photoScatterShowcase } from "../../data/profile";
+import { RichText } from "../content/RichText";
+import { aboutParagraphs, aboutPortrait, catPhoto, photoScatterShowcase, catParagraph } from "../../data/profile";
 
 /** Scrolls normally below the snap landing section. */
 export function AboutSection() {
@@ -15,7 +16,7 @@ export function AboutSection() {
             <TextImageBlock textSide="left" image={aboutPortrait} title="About me">
               {aboutParagraphs.map((paragraph, i) => (
                 <p key={i} className="leading-relaxed text-ink-soft">
-                  {paragraph}
+                  <RichText text={paragraph} />
                 </p>
               ))}
             </TextImageBlock>
@@ -28,7 +29,7 @@ export function AboutSection() {
           <TextImageBlock textSide="right" image={catPhoto} title="I also have a cat" 
           titleSize="text-5xl" align="text-right" position="top" imageClassName="aspect-[4/5]">
             <p className="leading-relaxed text-ink-soft text-right">
-              Replace this with a short intro to your cat: name, personality, favorite mischief.
+              {catParagraph}
             </p>
           </TextImageBlock>
         </Reveal>

@@ -57,11 +57,6 @@ export function ProjectPanel({ project, index, total, neighbors, onSelectNeighbo
       )}
 
       <article className="relative z-10 -rotate-[0.35deg] rounded-2xl border border-line bg-surface-raised shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(0,0,0,0.35)]">
-        {/* A strip of tape holding the card to the board. */}
-        <span
-          aria-hidden="true"
-          className="absolute -top-3 left-10 z-20 h-6 w-20 rotate-[-3deg] rounded-[2px] bg-ink/8"
-        />
 
         <header className="flex items-center justify-between gap-4 border-b border-dashed border-line px-6 py-3 sm:px-8">
           <span className="flex items-center gap-2">

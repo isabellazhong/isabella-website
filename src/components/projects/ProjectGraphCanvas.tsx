@@ -282,7 +282,7 @@ function GraphChrome({ total, isSpatial, dragging, highlightedTitle, onExplore }
               : "border-line text-ink-soft hover:border-ink-soft hover:text-ink"
           }`}
         >
-          {isSpatial ? `${total} nodes` : "Explore all"}
+          {isSpatial ? `${total} projects` : "Explore all"}
         </button>
       </div>
 
@@ -291,12 +291,12 @@ function GraphChrome({ total, isSpatial, dragging, highlightedTitle, onExplore }
           {isSpatial ? (
             <>
               <span className="text-ink">
-                {dragging ? "Release to open" : "Centre a node"}
+                {dragging ? "Release to open" : "View"}
               </span>
               {highlightedTitle ? ` · ${highlightedTitle}` : " · drag to rotate"}
             </>
           ) : (
-            <>Edges are Jaccard similarity of skill sets. Drag the board to return to the cloud.</>
+            <>Explore my projects! Edges are connected via Jaccard similairty :)</>
           )}
         </p>
       </div>

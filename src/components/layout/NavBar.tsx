@@ -48,9 +48,9 @@ export function NavBar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-transform duration-300 ease-in-out ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`sticky top-0 z-40 translate-y-0 transition-transform duration-300 ease-in-out ${
+        hidden ? "md:-translate-y-full" : "md:translate-y-0"
+      } ${open ? "bg-surface" : "bg-transparent"}`}
     >
       <div className="container-page relative flex h-16 items-center justify-center">
         <nav className="hidden items-center gap-20 md:flex" aria-label="Primary">
@@ -60,7 +60,7 @@ export function NavBar() {
             </NavLink>
           ))}
         </nav>
-        <div className="absolute right-4 flex items-center gap-4 sm:right-6 lg:right-8">
+        <div className="absolute  right-4 flex items-center gap-4 sm:right-6 lg:right-8">
           <ThemeToggle />
           <button
             type="button"
@@ -75,7 +75,7 @@ export function NavBar() {
       </div>
       {open && (
         <nav className="md:hidden" aria-label="Primary">
-          <div className="container-page flex flex-col gap-1 py-3">
+          <div className="bg-surface container-page flex flex-col gap-1 py-3">
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
