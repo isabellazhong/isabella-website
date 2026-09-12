@@ -1,4 +1,4 @@
-import type { ImageObject } from "./image-object";
+import type { ImageObject, Video } from "./image-object";
 
 /** Where the text sits relative to the image: side by side at desktop
     widths for "left"/"right", stacked vertically for "top"/"bottom". */
@@ -13,6 +13,20 @@ export type TitleSize = `text-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}xl`;
     layouts where the two sit in the same row. Defaults to "center". */
 export type TextVerticalPosition = "center" | "top" | "bottom";
 
+/** Marker style for a list block: bulleted (<ul>) or numbered (<ol>). */
+export type ListStyle = "bullet" | "number";
+
+/**
+ * Text-only blocks: the ones that can also sit inside a text-image block's
+ * text column. Kept separate so a text-image block can't nest images.
+ */
+export type TextContentBlock =
+  | { kind: "heading"; text: string }
+  | { kind: "paragraph"; text: string }
+  /** A bulleted or numbered list with an optional title, written as
+      { kind: "list", items: ["...", "..."] }. Defaults to bullets. */
+  | { kind: "list"; items: string[]; title?: string; style?: ListStyle };
+
 /**
  * ContentBlock is the building unit for long-form pages (project details,
  * blog posts). Pages hold an ordered ContentBlock[] and the ContentBlocks
@@ -20,9 +34,12 @@ export type TextVerticalPosition = "center" | "top" | "bottom";
  * src/components/content/ContentBlocks.tsx.
  */
 export type ContentBlock =
-  | { kind: "heading"; text: string }
-  | { kind: "paragraph"; text: string }
+  | TextContentBlock
   | { kind: "image"; image: ImageObject; caption?: string }
+  /** A video player with an optional caption. Carries the Video object's own
+      options (variant, controls, autoPlay, loop, muted) inline, so a block is
+      written as { kind: "video", video: { src, alt }, loop: true }. */
+  | ({ kind: "video"; caption?: string } & Omit<Video, "kind">)
   | {
       /** Split block: text alongside (or stacked with) any ImageObject. */
       kind: "text-image";
@@ -32,6 +49,8 @@ export type ContentBlock =
       titleSize?: TitleSize;
       /** Vertical position of the text against the image. Defaults to "center". */
       position?: TextVerticalPosition;
-      text: string;
+      /** A single paragraph as a string, or an ordered mix of text blocks
+          (paragraphs, lists, headings) for the text column. */
+      text: string | TextContentBlock[];
       image: ImageObject;
     };

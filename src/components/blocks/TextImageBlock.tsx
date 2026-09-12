@@ -13,7 +13,7 @@ const VERTICAL_POSITION_CLASS: Record<TextVerticalPosition, string> = {
 export interface TextImageBlockProps {
   /** Side by side at desktop widths for "left"/"right", stacked for "top"/"bottom". */
   textSide: TextImagePosition;
-  /** Any ImageObject variant: single, carousel, spring-stack, frame-sequence, photo-scatter. */
+  /** Any ImageObject variant: single, video, carousel, spring-stack, frame-sequence, photo-scatter. */
   image: ImageObject;
   title?: string;
   /** Tailwind text-size utility for the title. Defaults to "text-9xl". */

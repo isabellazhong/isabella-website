@@ -16,6 +16,33 @@ export interface ProjectPanelProps {
   onSelectNeighbor: (id: string) => void;
 }
 
+/**
+ * Descriptions are written as indented template literals, so a blank line marks
+ * a paragraph break and every other run of whitespace is just source formatting.
+ */
+function toParagraphs(description: string): string[] {
+  return description
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+/**
+ * Where each screenshot gets tacked to the board, in order. A project with more
+ * photos than there are slots is fine -- the list wraps, so a seventh photo
+ * reuses the first corner. The far-flung slots only appear on wide screens, so
+ * a narrow window keeps the scatter to the two closest photos. Class strings
+ * are written out in full because Tailwind reads them straight from source.
+ */
+const scatterSlots = [
+  { place: "-top-14 -left-10", size: "w-66", tilt: "-rotate-3", reveal: "hidden lg:block" },
+  { place: "-top-8 -right-14", size: "w-36", tilt: "rotate-[7deg]", reveal: "hidden xl:block" },
+];
+
+/** The lifted-off-the-board shadow every tacked photo shares. */
+const photoShadow =
+  "shadow-[0_10px_20px_-8px_rgba(0,0,0,0.25),0_25px_40px_-15px_rgba(0,0,0,0.3)]";
+
 /** A dashed hairline, the panel's only divider. */
 function Rule() {
   return <hr className="border-t border-dashed border-line" />;
@@ -37,24 +64,28 @@ export function ProjectPanel({ project, index, total, neighbors, onSelectNeighbo
 
   return (
     <div className="relative w-full max-w-xl">
-      {/* Screenshots tacked to the board behind the card. Offsets stay inside
-          the pane so a photo is never clipped by the viewport edge. */}
-      {gallery[0] && (
-        <img
-          src={gallery[0].src}
-          alt=""
-          aria-hidden="true"
-          className="polaroid-frame absolute -top-12 -left-12 hidden w-44 -rotate-3 object-cover lg:block"
-        />
-      )}
-      {gallery[1] && (
-        <img
-          src={gallery[1].src}
-          alt=""
-          aria-hidden="true"
-          className="polaroid-frame absolute -right-10 -bottom-8 hidden w-28 rotate-6 object-cover xl:block"
-        />
-      )}
+      {/* Screenshots tacked to the board behind the card, scattered around it
+          in slot order. They re-enter whenever the selection changes, a beat
+          apart, so the pile settles rather than snapping into place. */}
+      {gallery.map((photo, photoIndex) => {
+        const slot = scatterSlots[photoIndex % scatterSlots.length];
+        return (
+          <motion.img
+            key={`${project.id}-${photoIndex}`}
+            src={photo.src}
+            alt=""
+            aria-hidden="true"
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.35,
+              delay: reduceMotion ? 0 : photoIndex * 0.06,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className={`absolute rounded-sm object-cover ${photoShadow} ${slot.place} ${slot.size} ${slot.tilt} ${slot.reveal}`}
+          />
+        );
+      })}
 
       <article className="relative z-10 -rotate-[0.35deg] rounded-2xl border border-line bg-surface-raised shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(0,0,0,0.35)]">
 
@@ -87,7 +118,13 @@ export function ProjectPanel({ project, index, total, neighbors, onSelectNeighbo
 
             <Rule />
 
-            <p className="text-[0.9rem] leading-relaxed text-ink-soft">{project.description}</p>
+            <div className="flex flex-col gap-3">
+              {toParagraphs(project.description).map((paragraph, index) => (
+                <p key={index} className="text-[0.9rem] leading-relaxed text-ink-soft">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
 
             <Rule />
 

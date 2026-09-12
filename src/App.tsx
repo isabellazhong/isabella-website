@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
+import { useRememberSection } from "./lib/nav-memory";
 import { NavBar } from "./components/layout/NavBar";
 import { Footer } from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
@@ -11,6 +12,12 @@ import BlogFolderPage from "./pages/BlogFolderPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
+
+/** Keeps the nav bar's Projects and Blogs links pointing at the last page visited there. */
+function SectionMemory() {
+  useRememberSection();
+  return null;
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,6 +31,7 @@ export default function App() {
   return (
     <div className="flex min-h-dvh flex-col bg-surface">
       <ScrollToTop />
+      <SectionMemory />
       <NavBar />
       <main className="flex-1">
         <Routes>

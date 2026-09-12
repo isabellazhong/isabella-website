@@ -1,5 +1,5 @@
 import type { ContentBlock } from "./content-block";
-import type { ImageAsset, ImageObject } from "./image-object";
+import type { ImageAsset } from "./image-object";
 import type { Skill } from "./skill";
 
 /**
@@ -19,12 +19,6 @@ export interface Project {
   description: string;
   /** Everything the project was built with. Drives the graph's connections. */
   skills: Skill[];
-  /**
-   * Visual shown on the project detail page header context. Prefer
-   * non-interactive kinds here; interactive kinds like carousels belong in
-   * `details`.
-   */
-  cover: ImageObject;
   /** Screenshots pinned around the info panel on /projects. */
   gallery?: ImageAsset[];
   /** Body of the detail subpage. */

@@ -31,14 +31,14 @@ export const aboutParagraphs = [
 export const aboutPortrait: ImageObject = {
   kind: "single",
   image: 
-    { src: "/photos/about_me.png", alt: "my photo" },
+    { src: "/assets/about_me.png", alt: "my photo" },
 };
 
 /** My cat, shown as a plain image with no polaroid frame. */
 export const catPhoto: ImageObject = {
   kind: "single",
   variant: "plain",
-  image: { src: "/photos/cat.png", alt: "my cat" },
+  image: { src: "/assets/cat.png", alt: "my cat" },
 };
 
 export const catParagraph: string = "Her name is Luna! It took me forever to convince my parents to get her."
@@ -51,11 +51,11 @@ export const catParagraph: string = "Her name is Luna! It took me forever to con
 export const photoScatterShowcase: ImageObject = {
   kind: "photo-scatter",
   images: [
-    { src: "/photos/art/joey.jpeg", alt: "Placeholder photo one" },
-    { src: "/photos/art/koi.jpg", alt: "Placeholder photo two" },
-    { src: "/photos/art/landscape.jpg", alt: "Placeholder photo three" },
-    { src: "/photos/art/plate.jpg", alt: "Placeholder photo four" },
-    { src: "/photos/art/sketch.jpg", alt: "Placeholder photo five" },
+    { src: "/assets/art/joey.jpeg", alt: "Placeholder photo one" },
+    { src: "/assets/art/koi.jpg", alt: "Placeholder photo two" },
+    { src: "/assets/art/landscape.jpg", alt: "Placeholder photo three" },
+    { src: "/assets/art/plate.jpg", alt: "Placeholder photo four" },
+    { src: "/assets/art/sketch.jpg", alt: "Placeholder photo five" },
   ],
   text: "Some of my artworks!",
 };

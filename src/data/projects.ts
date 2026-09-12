@@ -14,86 +14,88 @@ export const projects: Project[] = [
   {
     id: "marker",
     title: "Marker",
-    tagline: "Study more efficently by removing the work you don't have to do.",
+    tagline: "Hack the 6ix",
     date: "2025-07-20",
     description:
-      "Synapse turns a folder of markdown notes into a browsable knowledge graph. It parses wiki-links at build time, lays the result out with a force simulation, and renders the whole thing as one canvas you can pan, zoom and search. The interesting problem was keeping 4,000 nodes at 60fps without giving up crisp text.",
+      `Marker is a self-study appplication that can ingest multimodal (video & text) documents to help fast-track your learning environment.
+
+       We made a RAG pipeline by using the Faiss library to store vector embeddings into an index. Vector embeddings are created using the Twelve labs
+       API which ingests chunks of transcript (for video documents) and chunks of text (for written documents).
+
+       The purpose of this is for users to be able to ask questions about their related documnets/work, and using the Google Cloud Vision API, it can
+       direct users to the exact section of their documents relating to their question. If needed, users can also generate summaries of their work,
+       which is generated with Gemini.`,
     skills: [
       { name: "TypeScript", category: "language" },
       { name: "React", category: "framework" },
       { name: "Vite", category: "tool" },
       { name: "Tailwind CSS", category: "framework" },
-      { name: "Motion", category: "library" },
-      { name: "D3", category: "library" },
-      { name: "Figma", category: "tool" },
       { name: "Vercel", category: "tool" },
+      { name: "faiss", category: "library"},
+      { name: "Tweleve Labs API", category: "tool"},
+      { name: "transformers", category: "library"}, 
+      { name: "nltk", category: "library"},
+      { name: "Gemini", category: "tool"},
+      { name: "Google Cloud Vision API", category: "tool"}
     ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-synapse/1200/900", alt: "Placeholder cover for Synapse" },
-    },
+    links: [{ label: "GitHub repo", url: "https://github.com/Williamwu277/marker" }],
     gallery: [
-      { src: "https://picsum.photos/seed/isabella-synapse-a/600/760", alt: "Synapse graph view" },
-      { src: "https://picsum.photos/seed/isabella-synapse-b/600/760", alt: "Synapse note detail" },
+      { src: "/assets/projects/marker/marker_landing.png", alt: "Marker landing" },
     ],
-    links: [{ label: "GitHub repo", url: "https://github.com" }],
     details: [
-      {
-        kind: "paragraph",
-        text: "Open with a short overview: the problem, your role, and the outcome. Two or three sentences is plenty.",
-      },
       {
         kind: "text-image",
         textSide: "left",
-        title: "How it works",
-        text: "Use text-image blocks to walk through the interesting parts. Set textSide to control which side the text sits on at desktop widths.",
+        text: `Unfortuantely, my API key for Twelve labs expired, so this is the extent of UI/UX you can see and you just have to trust me on what its capabilities are (or read the code as well... please brace yourselfs for the inconsistent design choices though. Granted, it was a hackathon and we were on few hours of sleep).`,
         image: {
           kind: "single",
-          image: { src: "https://picsum.photos/seed/isabella-synapse-c/1200/900", alt: "Placeholder screenshot" },
+          image: { src: "/assets/projects/marker/marker_landing.png", alt: "landing" }
         },
       },
       {
-        kind: "text-image",
-        textSide: "right",
-        title: "What it looks like",
-        text: "This block pairs text with a carousel image object. Any ImageObject variant can slot into the same position.",
-        image: {
-          kind: "carousel",
-          images: [
-            { src: "https://picsum.photos/seed/isabella-synapse-d/1200/900", alt: "Placeholder screen one" },
-            { src: "https://picsum.photos/seed/isabella-synapse-e/1200/900", alt: "Placeholder screen two" },
-            { src: "https://picsum.photos/seed/isabella-synapse-f/1200/900", alt: "Placeholder screen three" },
-          ],
-        },
+        kind:"paragraph",
+        text:
+        `When a project is submitted, there are different types of extractions that occur: Transcript from a video (which is fetched & chunked via Twelve labs API), and text from documents (i.e. pdfs, docx, etc.).`
       },
-      { kind: "heading", text: "What I learned" },
       {
-        kind: "paragraph",
-        text: "Close with reflections or next steps. Add, remove, or reorder blocks freely; the page renders whatever the details array holds.",
+        kind:"paragraph",
+        text:
+        `Now, the next process is the chunking and embedding. The video transcript gets chunked (fixed amount) automatically which gets embedded (along with its metadat i.e. timestamp) and 
+         ingested into our vector store (index). As for the text of documents, this is done differently. First we use chunk the text of the document into pages and tokenize each chunk to make ensure we are 
+         under the max amount of tokens per chunk. If it exceeds, we further divide it into smaller chunks. Likewise, we also merge chunks if they are under the max token size. Then, we embed the text (along with metadata i.e. bounding box, page, etc.) and ingest it into our store.
+        `
       },
+      {
+        kind:"paragraph",
+        text:
+        `Thus, if a user decides to ingest their homework sheet, for example, they can ask about a certain question on the sheet (using Google Cloud Vision). The question on the document will get embedded and we preform a RAG search for the closet top k vectors relating to that question. 
+         Because we store the metadata (ex. page number, bounding box, timestamp), it can easily guide the user to that section of notes / video that could potentially help answer the question. 
+        `
+      }
     ],
   },
   {
-    id: "tidewatch",
-    title: "Tidewatch",
-    tagline: "Coastal flood alerts for people who do not read tide tables.",
-    date: "2026-01-22",
+    id: "neighbourly",
+    title: "Neighbourly",
+    tagline: "Group Project",
+    date: "2025-11-10",
     description:
-      "A scheduled job pulls tide and storm-surge readings from three public feeds, reconciles their disagreeing timestamps, and pushes a plain-language warning when a beach access road is about to go under. The hard part was not the model; it was making the alert readable at 6am.",
+      `An application made to strengthen communities by supporting citizen's desire to help provide services / give resources for their fellow neighbours. 
+        It simulates an Facebook marketplace + Uber-like interface where neighbours are able to see requests made by other neighbours for services and resources, and 
+        have the ability to accept those requests. 
+      `,
     skills: [
-      { name: "TypeScript", category: "language" },
+      { name: "Java", category: "language" },
       { name: "React", category: "framework" },
       { name: "Node.js", category: "tool" },
       { name: "PostgreSQL", category: "tool" },
       { name: "Prisma", category: "library" },
       { name: "Docker", category: "tool" },
     ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-tidewatch/1200/900", alt: "Placeholder cover for Tidewatch" },
-    },
     gallery: [
-      { src: "https://picsum.photos/seed/isabella-tidewatch-a/600/760", alt: "Tidewatch alert screen" },
+      { src: "https://picsum.photos/seed/isabella-neighbourly-a/600/760", alt: "Neighbourly alert screen" },
+      { src: "https://picsum.photos/seed/isabella-neighbourly-b/600/420", alt: "Neighbourly tide feed" },
+      { src: "https://picsum.photos/seed/isabella-neighbourly-c/520/700", alt: "Neighbourly morning digest" },
     ],
     details: [
       {
@@ -103,37 +105,63 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "foldspace",
-    title: "Foldspace",
-    tagline: "Protein structure search that runs on a laptop.",
-    date: "2025-09-05",
+    id: "car",
+    title: "Remote Control Car",
+    tagline: "First hardware project!",
+    date: "2025-07-30",
     description:
-      "An embedding index over predicted structures, quantised hard enough to fit in memory on consumer hardware. Queries return in under a second where the reference implementation needed a cluster. Written up as a short methods note alongside the code.",
+      "Wanted to try something new so I dabbled in a bit of hardware :) Took me a looong time figuring it all out but I managed to get it done (though it's a bit janky). Made this for my co-worker because he's really into cars!",
     skills: [
-      { name: "Python", category: "language" },
-      { name: "PyTorch", category: "framework" },
-      { name: "NumPy", category: "library" },
-      { name: "FastAPI", category: "framework" },
-      { name: "Docker", category: "tool" },
+      {name: "Arduino", category: "language"}
     ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-foldspace/1200/900", alt: "Placeholder cover for Foldspace" },
-    },
     gallery: [
-      { src: "https://picsum.photos/seed/isabella-foldspace-a/600/760", alt: "Foldspace query results" },
+      { src: "/assets/projects/car/car_landing.png", alt: "Foldspace query results" },
     ],
     details: [
       {
-        kind: "paragraph",
-        text: "Open with a short overview: the problem, your role, and the outcome.",
+        kind:"paragraph",
+        text:"Here's a short video of it driving using a remote control! Drives perfectly haha..."
+      }, 
+      {
+        kind: "video",
+        video: {"src": "/assets/projects/car/car_video.MOV", "alt": "video", "poster": undefined}
+
       },
+      {
+        kind: "text-image",
+        textSide: "left",
+        image: { kind: "single", image: { src: "/assets/projects/car/car_landing.png", alt: "car" } },
+        text: [
+            {
+              kind:"paragraph", 
+              text: "If you ever want to replicate this, these are the steps I did: "
+            },
+           {
+              kind:"list", 
+              style: "number", 
+              items: [
+                `Purchase a motor driver, IR reciever, Adriuno, female / male wires, remote control, motors, battery holder, and two rechargable batteries (at least 3.7V).
+                Do NOT make the same mistake I did and get a battery that has signifigantly less voltage or it will fail to generate enough power for the car tires to run`,
+                "Make the outer car frame either via 3-D printing or (if you want a lower quality version that's harder to work with like I ended up doing) you can use cardboard",
+                "Connect the motors to the motor driver", 
+                "Connect your Ardiuno to the motor driver and IR reciever",
+                "Connect the wires from your battery holder to the power and GND of the motor driver", 
+                "Create a script in Ardiuno to control the signals you reiceve from the remote to the motor driver. The power from your laptop will be sufficent to test!",
+                "Place the battery in the battery holder, and assemble the rest of the frame together"
+              ]
+            },
+            {
+              kind: "paragraph",
+              text: "Seems honestly not that bad, but as a beginner to hardware, that was one of the most frustrating experiences of my life (no regrets though!)"
+            }
+        ],
+      }
     ],
   },
   {
-    id: "almanac",
-    title: "Almanac",
-    tagline: "Twenty years of a family farm's records, finally queryable.",
+    id: "recruit",
+    title: "Recruit",
+    tagline: "Hack the Valley",
     date: "2025-05-30",
     description:
       "Scanned notebooks turned into a tidy time series: yields, rainfall, and every decision that sat between them. The ingestion pipeline is deliberately boring and the interesting work is in the reconciliation rules, which are all documented in the repo.",
@@ -145,11 +173,10 @@ export const projects: Project[] = [
       { name: "PostgreSQL", category: "tool" },
       { name: "Docker", category: "tool" },
     ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-almanac/1200/900", alt: "Placeholder cover for Almanac" },
-    },
-    gallery: [{ src: "https://picsum.photos/seed/isabella-almanac-a/600/760", alt: "Almanac dashboard" }],
+    gallery: [
+      { src: "https://picsum.photos/seed/isabella-almanac-a/600/760", alt: "Almanac dashboard" },
+      { src: "https://picsum.photos/seed/isabella-almanac-b/600/420", alt: "Almanac season view" },
+    ],
     details: [
       {
         kind: "paragraph",
@@ -172,45 +199,17 @@ export const projects: Project[] = [
       { name: "PostgreSQL", category: "tool" },
       { name: "Docker", category: "tool" },
     ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-paperweight/1200/900", alt: "Placeholder cover for Paperweight" },
-    },
-    gallery: [{ src: "https://picsum.photos/seed/isabella-paperweight-a/600/760", alt: "Paperweight reader view" }],
+    gallery: [
+      { src: "https://picsum.photos/seed/isabella-paperweight-a/600/760", alt: "Paperweight reader view" },
+      { src: "https://picsum.photos/seed/isabella-paperweight-b/600/420", alt: "Paperweight annotation pane" },
+    ],
     details: [
       {
         kind: "paragraph",
         text: "Open with a short overview: the problem, your role, and the outcome.",
       },
     ],
-  },
-  {
-    id: "lanterns",
-    title: "Lanterns",
-    tagline: "A browser toy about light, drawn one shader at a time.",
-    date: "2024-06-03",
-    description:
-      "A hundred paper lanterns drifting in a dark field, each one a single draw call. Built to learn how far a hand-written fragment shader can carry an interface before you reach for a real engine. It ships as one page and no build-time assets.",
-    skills: [
-      { name: "TypeScript", category: "language" },
-      { name: "React", category: "framework" },
-      { name: "Three.js", category: "library" },
-      { name: "GLSL", category: "language" },
-      { name: "Vite", category: "tool" },
-      { name: "Figma", category: "tool" },
-    ],
-    cover: {
-      kind: "single",
-      image: { src: "https://picsum.photos/seed/isabella-lanterns/1200/900", alt: "Placeholder cover for Lanterns" },
-    },
-    gallery: [{ src: "https://picsum.photos/seed/isabella-lanterns-a/600/760", alt: "Lanterns scene" }],
-    details: [
-      {
-        kind: "paragraph",
-        text: "Open with a short overview: the problem, your role, and the outcome.",
-      },
-    ],
-  },
+  }
 ];
 
 /**

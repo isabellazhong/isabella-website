@@ -1,8 +1,9 @@
 /**
  * ImageObject is the "parent type" for anything that displays imagery inside
- * a block. Each concrete variant extends ImageObjectBase and declares a
- * unique `kind` discriminator; the union at the bottom is what components
- * accept, so TypeScript narrows to the right variant automatically.
+ * a block -- stills, animations and video alike. Each concrete variant extends
+ * ImageObjectBase and declares a unique `kind` discriminator; the union at the
+ * bottom is what components accept, so TypeScript narrows to the right variant
+ * automatically.
  *
  * To add a new image object type:
  *   1. Define an interface extending ImageObjectBase with a unique `kind`.
@@ -18,6 +19,16 @@ export interface ImageAsset {
   alt: string;
 }
 
+/** A single video file plus its accessible description. */
+export interface VideoAsset {
+  /** Path to the video file, e.g. "/assets/projects/marker/demo.mp4". */
+  src: string;
+  /** Describes the video; shown if it can't be played. */
+  alt: string;
+  /** Image held before playback starts, e.g. "/assets/projects/marker/demo_poster.png". */
+  poster?: string;
+}
+
 export interface ImageObjectBase {
   kind: string;
 }
@@ -30,6 +41,23 @@ export interface SingleImage extends ImageObjectBase {
   variant?: "polaroid" | "plain";
 }
 
+/** One video player. */
+export interface Video extends ImageObjectBase {
+  kind: "video";
+  video: VideoAsset;
+  /** "plain" (default) renders the bare player; "polaroid" frames it like a photo. */
+  variant?: "polaroid" | "plain";
+  /** Show the browser's playback controls. Defaults to true. */
+  controls?: boolean;
+  /** Play as soon as the video can. Browsers only allow this while muted, so
+      autoplaying videos are muted unless `muted` says otherwise. Defaults to false. */
+  autoPlay?: boolean;
+  /** Restart when it reaches the end. Defaults to false. */
+  loop?: boolean;
+  /** Start muted. Defaults to true for autoplaying videos, false otherwise. */
+  muted?: boolean;
+}
+
 /** An arrow-driven carousel that fades between images. */
 export interface Carousel extends ImageObjectBase {
   kind: "carousel";
@@ -40,6 +68,8 @@ export interface Carousel extends ImageObjectBase {
 export interface SpringStack extends ImageObjectBase {
   kind: "spring-stack";
   images: ImageAsset[];
+  /** "polaroid" (default) frames each card; "plain" fans the bare images. */
+  variant?: "polaroid" | "plain";
 }
 
 /**
@@ -73,4 +103,4 @@ export interface PhotoScatter extends ImageObjectBase {
   text: string;
 }
 
-export type ImageObject = SingleImage | Carousel | SpringStack | FrameSequence | PhotoScatter;
+export type ImageObject = SingleImage | Video | Carousel | SpringStack | FrameSequence | PhotoScatter;

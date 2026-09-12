@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router";
+import { Link, useLocation } from "react-router";
 import { List, X } from "@phosphor-icons/react";
 import { ThemeToggle } from "./ThemeToggle";
+import { navTarget } from "../../lib/nav-memory";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -12,6 +13,7 @@ const NAV_ITEMS = [
 ];
 
 export function NavBar() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -36,15 +38,20 @@ export function NavBar() {
     if (open) setHidden(false);
   }, [open]);
 
-  const desktopLink = ({ isActive }: { isActive: boolean }) =>
+  // A section stays highlighted while the visitor is anywhere inside it, so an
+  // open project or blog post still reads as "Projects" / "Blogs".
+  const isActive = (to: string) =>
+    to === "/" ? pathname === "/" : pathname === to || pathname.startsWith(`${to}/`);
+
+  const desktopLink = (active: boolean) =>
     `font-display text-sm transition-colors ${
-      isActive
+      active
         ? "text-accent"
         : "hover:text-ink"
     }`;
 
-  const mobileLink = ({ isActive }: { isActive: boolean }) =>
-    `font-display rounded-full px-4 py-2 text-sm ${isActive ? "text-ink" : "text-accent-ink"}`;
+  const mobileLink = (active: boolean) =>
+    `font-display rounded-full px-4 py-2 text-sm ${active ? "text-ink" : "text-accent-ink"}`;
 
   return (
     <header
@@ -55,9 +62,14 @@ export function NavBar() {
       <div className="container-page relative flex h-16 items-center justify-center">
         <nav className="hidden items-center gap-20 md:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.to === "/"} className={desktopLink}>
+            <Link
+              key={item.to}
+              to={navTarget(item.to, pathname)}
+              aria-current={isActive(item.to) ? "page" : undefined}
+              className={desktopLink(isActive(item.to))}
+            >
               {item.label}
-            </NavLink>
+            </Link>
           ))}
         </nav>
         <div className="absolute  right-4 flex items-center gap-4 sm:right-6 lg:right-8">
@@ -77,15 +89,15 @@ export function NavBar() {
         <nav className="md:hidden" aria-label="Primary">
           <div className="bg-surface container-page flex flex-col gap-1 py-3">
             {NAV_ITEMS.map((item) => (
-              <NavLink
+              <Link
                 key={item.to}
-                to={item.to}
-                end={item.to === "/"}
-                className={mobileLink}
+                to={navTarget(item.to, pathname)}
+                aria-current={isActive(item.to) ? "page" : undefined}
+                className={mobileLink(isActive(item.to))}
                 onClick={() => setOpen(false)}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             ))}
           </div>
         </nav>

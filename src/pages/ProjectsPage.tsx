@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ProjectGraphCanvas } from "../components/projects/ProjectGraphCanvas";
 import { ProjectPanel } from "../components/projects/ProjectPanel";
 import { ProjectGraph } from "../lib/graph/ProjectGraph";
+import { useStickyState } from "../lib/useStickyState";
 import { defaultProjectId, focusNeighborCount, projectGraphSettings, projects } from "../data/projects";
 
 /**
@@ -10,13 +11,18 @@ import { defaultProjectId, focusNeighborCount, projectGraphSettings, projects } 
  *
  * The two halves share a single piece of state -- the selected project id --
  * so a release over a node, a tap, and a click in the panel's neighbor list
- * all drive the same transition.
+ * all drive the same transition. That id is remembered for the tab, so opening
+ * a project write-up and wandering off returns to that same project.
  */
 export default function ProjectsPage() {
   const graph = useMemo(() => new ProjectGraph(projects, projectGraphSettings), []);
 
   const openingId = defaultProjectId ?? graph.mostRecentId() ?? "";
-  const [selectedId, setSelectedId] = useState(openingId);
+  const [selectedId, setSelectedId] = useStickyState(
+    "projects:selected",
+    openingId,
+    (id) => graph.node(id) !== undefined,
+  );
 
   const selected = graph.node(selectedId) ?? graph.node(openingId);
   const neighbors = selected ? graph.neighbors(selected.id, focusNeighborCount) : [];

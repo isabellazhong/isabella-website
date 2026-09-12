@@ -1,5 +1,6 @@
 import type { ImageObject } from "../../types";
 import { SingleImageView } from "./SingleImageView";
+import { VideoView } from "./VideoView";
 import { CarouselView } from "./CarouselView";
 import { SpringStackView } from "./SpringStackView";
 import { FrameSequenceView } from "./FrameSequenceView";
@@ -19,6 +20,8 @@ export function ImageObjectView({ object, className }: ImageObjectViewProps) {
   switch (object.kind) {
     case "single":
       return <SingleImageView object={object} className={className} />;
+    case "video":
+      return <VideoView object={object} className={className} />;
     case "carousel":
       return <CarouselView object={object} className={className} />;
     case "spring-stack":
