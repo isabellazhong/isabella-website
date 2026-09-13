@@ -1,9 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import type { Neighbor } from "../../lib/graph/ProjectGraph";
 import { formatDate } from "../../lib/format";
 import type { Project } from "../../types";
+import { ProjectLinks } from "./ProjectLinks";
 import { SkillList } from "./SkillList";
 
 export interface ProjectPanelProps {
@@ -171,25 +172,16 @@ export function ProjectPanel({ project, index, total, neighbors, onSelectNeighbo
             <Rule />
 
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <Link
-                to={`/projects/${project.id}`}
-                className="group inline-flex items-center gap-1.5 text-sm font-medium text-accent"
-              >
-                Read the full write-up
-                <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              {project.links?.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-ink-soft transition-colors hover:text-ink"
+              {project.details && project.details.length > 0 && (
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-accent"
                 >
-                  {link.label}
-                  <ArrowUpRight size={13} />
-                </a>
-              ))}
+                  Read the full write-up
+                  <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              )}
+              <ProjectLinks project={project} />
             </div>
           </motion.div>
         </AnimatePresence>

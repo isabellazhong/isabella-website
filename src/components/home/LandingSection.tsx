@@ -27,9 +27,11 @@ export function LandingSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="font-display text-5xl tracking-tight md:text-2xl text-accent-ink">{landing.headline}</h1>
-          <h1 className="font-display text-9xl tracking-tight md:text-9xl text-accent-ink gradient-text">Isabella</h1>
-          <p className="max-w-[40ch] text-6xl leading-relaxed text-ink-soft">{landing.subtext}</p>
+          <h1 className="font-display text-3xl tracking-tight sm:text-4xl md:text-2xl text-accent-ink">{landing.headline}</h1>
+          {/* Fluid so the name never outgrows a narrow viewport (the section
+              clips overflow); settles at text-9xl (8rem) on wide screens. */}
+          <h1 className="font-display text-[clamp(3.5rem,18vw,8rem)] leading-none tracking-tight text-accent-ink gradient-text">Isabella</h1>
+          <p className="max-w-[40ch] text-4xl leading-relaxed text-ink-soft sm:text-5xl md:text-6xl">{landing.subtext}</p>
         </motion.div>
       </div>
     </section>

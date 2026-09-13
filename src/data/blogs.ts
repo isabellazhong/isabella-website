@@ -7,14 +7,14 @@ import type { BlogFolder } from "../types";
  */
 export const blogFolders: BlogFolder[] = [
   {
-    id: "tech-notes",
-    name: "Tech notes",
-    description: "Things I learned while building and breaking software.",
+    id: "machine-learning",
+    name: "Machine Learning",
+    description: "My Machine Learning Journey Documentation!",
     posts: [
       {
-        id: "first-post",
-        title: "Title of your first post",
-        date: "2026-08-14",
+        id: "adam",
+        title: "The Bug: Adam vs. AdamW Optimizers",
+        date: "2026-09-12",
         summary: "One-line teaser shown on the stacked list block.",
         content: [
           {
@@ -36,37 +36,6 @@ export const blogFolders: BlogFolder[] = [
           },
         ],
       },
-      {
-        id: "second-post",
-        title: "Title of your second post",
-        date: "2026-07-02",
-        summary: "One-line teaser shown on the stacked list block.",
-        content: [
-          {
-            kind: "paragraph",
-            text: "Every post is just data: duplicate this object, change the id, and the routes and lists update automatically.",
-          },
-        ],
-      },
     ],
-  },
-  {
-    id: "life",
-    name: "Life",
-    description: "Everything that is not code.",
-    posts: [
-      {
-        id: "hello",
-        title: "Title of a post in another folder",
-        date: "2026-06-10",
-        summary: "One-line teaser shown on the stacked list block.",
-        content: [
-          {
-            kind: "paragraph",
-            text: "Folders keep sections separate. Add a new folder in src/data/blogs.ts and it appears on the blogs page immediately.",
-          },
-        ],
-      },
-    ],
-  },
+  }
 ];

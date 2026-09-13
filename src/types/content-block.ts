@@ -25,7 +25,11 @@ export type TextContentBlock =
   | { kind: "paragraph"; text: string }
   /** A bulleted or numbered list with an optional title, written as
       { kind: "list", items: ["...", "..."] }. Defaults to bullets. */
-  | { kind: "list"; items: string[]; title?: string; style?: ListStyle };
+  | { kind: "list"; items: string[]; title?: string; style?: ListStyle }
+  /** A block of LaTeX rendered as display math, written as
+      { kind: "latex", text: "E = mc^2" } (no surrounding $$ needed). Multiple
+      lines can be set with \\ inside an aligned environment. */
+  | { kind: "latex"; text: string; caption?: string };
 
 /**
  * ContentBlock is the building unit for long-form pages (project details,

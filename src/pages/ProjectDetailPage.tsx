@@ -3,6 +3,7 @@ import { ArrowLeft } from "@phosphor-icons/react";
 import { projects } from "../data/projects";
 import { formatDate } from "../lib/format";
 import { ContentBlocks } from "../components/content/ContentBlocks";
+import { ProjectLinks } from "../components/projects/ProjectLinks";
 import { SkillList } from "../components/projects/SkillList";
 import NotFoundPage from "./NotFoundPage";
 
@@ -10,7 +11,7 @@ export default function ProjectDetailPage() {
   const { projectId } = useParams();
   const project = projects.find((p) => p.id === projectId);
 
-  if (!project) return <NotFoundPage />;
+  if (!project || !project.details?.length) return <NotFoundPage />;
 
   return (
     <article className="container-page flex flex-col gap-10 pb-24 pt-12">
@@ -27,21 +28,9 @@ export default function ProjectDetailPage() {
         <div className="mt-3 max-w-xl">
           <SkillList skills={project.skills} />
         </div>
-        {project.links && project.links.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-4">
-            {project.links.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-medium text-accent hover:underline"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        )}
+        <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 empty:hidden">
+          <ProjectLinks project={project} />
+        </div>
       </header>
       <ContentBlocks blocks={project.details} />
     </article>

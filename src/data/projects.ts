@@ -8,7 +8,8 @@ import type { ProjectGraphOptions } from "../lib/graph/ProjectGraph";
  * the heavier the edge. Adding or removing a skill re-draws the constellation,
  * so keep the sets honest.
  *
- * `details` still drives the long-form subpage at /projects/:id.
+ * `details` is optional: when present it drives the long-form subpage at
+ * /projects/:id; leave it out for projects that don't need a write-up.
  */
 export const projects: Project[] = [
   {
@@ -38,7 +39,7 @@ export const projects: Project[] = [
       { name: "Gemini", category: "tool"},
       { name: "Google Cloud Vision API", category: "tool"}
     ],
-    links: [{ label: "GitHub repo", url: "https://github.com/Williamwu277/marker" }],
+    github: "https://github.com/Williamwu277/marker",
     gallery: [
       { src: "/assets/projects/marker/marker_landing.png", alt: "Marker landing" },
     ],
@@ -142,7 +143,7 @@ export const projects: Project[] = [
               items: [
                 `Purchase a motor driver, IR reciever, Adriuno, female / male wires, remote control, motors, battery holder, and two rechargable batteries (at least 3.7V).
                 Do NOT make the same mistake I did and get a battery that has signifigantly less voltage or it will fail to generate enough power for the car tires to run`,
-                "Make the outer car frame either via 3-D printing or (if you want a lower quality version that's harder to work with like I ended up doing) you can use cardboard",
+                "Make the outer car frame either via 3-D printing or (if you want to do a cheap and fast way like I ended up doing) you can use cardboard",
                 "Connect the motors to the motor driver", 
                 "Connect your Ardiuno to the motor driver and IR reciever",
                 "Connect the wires from your battery holder to the power and GND of the motor driver", 
@@ -152,30 +153,52 @@ export const projects: Project[] = [
             },
             {
               kind: "paragraph",
-              text: "Seems honestly not that bad, but as a beginner to hardware, that was one of the most frustrating experiences of my life (no regrets though!)"
+              text: "This was extremely frustrating to complete, but I'm quite proud that I finished it (and it worked)!"
             }
         ],
       }
     ],
   },
   {
-    id: "recruit",
-    title: "Recruit",
+    id: "justastartup",
+    title: "justastartup",
     tagline: "Hack the Valley",
     date: "2025-05-30",
     description:
-      "Scanned notebooks turned into a tidy time series: yields, rainfall, and every decision that sat between them. The ingestion pipeline is deliberately boring and the interesting work is in the reconciliation rules, which are all documented in the repo.",
+      `Sometimes you don't entirely know if your startup idea would be good to suceed. Now, realistically this is done through trial and error - you attempt it, and if it fails, you continue to iterate. 
+      But if you want an objective lens on how feasible of an idea it is, this application is meant to give you different perspectives based on an economic point of view. It fast-tracks the research you would have
+      to do manually, and allows for insight to your judgement. Here, we use AlphaVantage API to get information on stocks and other economic information to give as context to the LLM. 
+      `,
     skills: [
-      { name: "Python", category: "language" },
-      { name: "FastAPI", category: "framework" },
-      { name: "pandas", category: "library" },
-      { name: "NumPy", category: "library" },
+      { name: "Typescript", category: "language" },
+      { name: "OAuth", category: "framework" },
+      { name: "Gemini API", category: "tool" },
+      { name: "AlphaVantage API", category: "tool"},
+      { name: "Supabase", category: "tool"}
+    ],
+    gallery: [
+      { src: "/assets/projects/justastartup/create.png", alt: "Create" },
+      { src: "/assets/projects/justastartup/landing.png", alt: "Landing" },
+    ]
+  },
+  {
+    id: "recruit",
+    title: "Recruit",
+    tagline: "Hack Western",
+    date: "2025-11-21",
+    description:
+      "Scan a page with the camera, and the app finds where you are in the ebook and syncs from there. Offline first, with a small sync service behind it. Most of the effort went into making the scan feel instant rather than into the matching itself.",
+    skills: [
+      { name: "Swift", category: "language" },
+      { name: "SwiftUI", category: "framework" },
+      { name: "Xcode", category: "tool" },
+      { name: "Figma", category: "tool" },
       { name: "PostgreSQL", category: "tool" },
       { name: "Docker", category: "tool" },
     ],
     gallery: [
-      { src: "https://picsum.photos/seed/isabella-almanac-a/600/760", alt: "Almanac dashboard" },
-      { src: "https://picsum.photos/seed/isabella-almanac-b/600/420", alt: "Almanac season view" },
+      { src: "https://picsum.photos/seed/isabella-paperweight-a/600/760", alt: "Paperweight reader view" },
+      { src: "https://picsum.photos/seed/isabella-paperweight-b/600/420", alt: "Paperweight annotation pane" },
     ],
     details: [
       {
@@ -185,12 +208,12 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "paperweight",
-    title: "Paperweight",
-    tagline: "An iOS reader that keeps your place across paper and screen.",
-    date: "2024-11-12",
+    id: "d",
+    title: "Big AI Energy",
+    tagline: "Hack the Future (Case Competition)",
+    date: "2025-03-01",
     description:
-      "Scan a page with the camera, and the app finds where you are in the ebook and syncs from there. Offline first, with a small sync service behind it. Most of the effort went into making the scan feel instant rather than into the matching itself.",
+      "We were a finalist for this (fourth place) and got the opprotunity to present at Google Headquarters. Our challenge prompt was ",
     skills: [
       { name: "Swift", category: "language" },
       { name: "SwiftUI", category: "framework" },

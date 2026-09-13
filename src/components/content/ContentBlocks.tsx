@@ -2,6 +2,7 @@ import type { ContentBlock, ImageObject, TextContentBlock } from "../../types";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 import { ListBlock } from "../blocks/ListBlock";
+import { LatexBlock } from "../blocks/LatexBlock";
 
 /**
  * Photos set into a write-up read as illustrations rather than as prints on a
@@ -33,6 +34,8 @@ function renderTextBlock(block: TextContentBlock, key: string) {
       );
     case "list":
       return <ListBlock key={key} items={block.items} title={block.title} style={block.style} />;
+    case "latex":
+      return <LatexBlock key={key} text={block.text} caption={block.caption} />;
   }
 }
 
@@ -54,6 +57,7 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
           case "heading":
           case "paragraph":
           case "list":
+          case "latex":
             return renderTextBlock(block, key);
           case "image":
             return (

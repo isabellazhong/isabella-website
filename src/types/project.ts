@@ -21,8 +21,14 @@ export interface Project {
   skills: Skill[];
   /** Screenshots pinned around the info panel on /projects. */
   gallery?: ImageAsset[];
-  /** Body of the detail subpage. */
-  details: ContentBlock[];
-  /** External links (repo, live demo, writeup). */
+  /** Body of the detail subpage. Omit it (or leave it empty) and the project
+      has no write-up: the panel drops its "Read the full write-up" link and
+      /projects/:id falls through to the 404 page. */
+  details?: ContentBlock[];
+  /** Source repository; shown with the GitHub mark beside the write-up link. */
+  github?: string;
+  /** Hackathon submission; shown with the Devpost mark next to GitHub. */
+  devpost?: string;
+  /** Any other external links (live demo, writeup, ...), listed after the two above. */
   links?: { label: string; url: string }[];
 }

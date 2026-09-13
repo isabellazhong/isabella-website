@@ -41,7 +41,7 @@ export const catPhoto: ImageObject = {
   image: { src: "/assets/cat.png", alt: "my cat" },
 };
 
-export const catParagraph: string = "Her name is Luna! It took me forever to convince my parents to get her."
+export const catParagraph: string = "Her name is Luna!"
 
 /**
  * Five photos that pile up, then scatter into a loose ring around the
