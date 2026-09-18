@@ -93,7 +93,8 @@ export const projects: Project[] = [
       { name: "Gemini", category: "tool" },
       { name: "MongoDB", category: "database" },
       { name: "Sendbird Platform API", category: "tool" },
-    ]
+    ],
+    github: "https://github.com/isabellazhong/neighbourly"
   },
   {
     id: "car",
@@ -149,7 +150,6 @@ export const projects: Project[] = [
         ],
       }
     ],
-    github: "https://github.com/isabellazhong/neighbourly"
   },
   {
     id: "justastartup",
