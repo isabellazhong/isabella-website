@@ -26,7 +26,7 @@ const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: 
 
 const SCATTER_END = 0.35;
 const TEXT_START = 0.4;
-const TEXT_END = 1;
+const TEXT_END = 0.7;
 
 const FRAME_BASE: CSSProperties = { fontSize: "4.8cqw" };
 
