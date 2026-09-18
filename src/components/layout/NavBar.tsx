@@ -86,8 +86,8 @@ export function NavBar() {
         </div>
       </div>
       {open && (
-        <nav className="md:hidden" aria-label="Primary">
-          <div className="bg-surface container-page flex flex-col gap-1 py-3">
+        <nav className="absolute inset-x-0 top-full bg-surface md:hidden" aria-label="Primary">
+          <div className="container-page flex flex-col gap-1 py-3">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.to}

@@ -5,7 +5,7 @@ import { blogFolders } from "../data/blogs";
 export default function BlogsPage() {
   return (
     <>
-      <PageHeader title="Blogs" lede="Writing, organized into folders. Open one to browse its posts." />
+      <PageHeader title="Blogs"/>
       <div className="container-page pb-24">
         {blogFolders.length === 0 ? (
           <p className="text-ink-soft">Add folders in src/data/blogs.ts and they will show up here.</p>

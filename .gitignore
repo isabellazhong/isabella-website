@@ -3,4 +3,9 @@ dist
 *.local
 .DS_Store
 .agents
-.claude
+.claude.env
+.env.*
+!.env.example
+.env
+.vercel
+.env*
