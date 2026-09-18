@@ -16,19 +16,6 @@ export interface PhotoScatterRevealProps {
     38rem wide, so it never renders wider than ~200px. */
 const PHOTO_SIZES = "200px";
 
-/**
- * Hand-placed pile and scatter positions for 5 photos, in cqw (percent of
- * the inner anchor box's own width - see the `@container` div in
- * PhotoScatterReveal). That anchor box is deliberately sized to a fraction
- * of the visible sticky area (`min(60cqmin, 38rem)`), so the scatter -
- * which reaches past the anchor's own edges by design - always lands
- * inside the visible, clipped sticky area instead of overflowing it on
- * narrow screens. Values were derived from the original pixel layout at
- * the anchor's max size (38rem / 608px), so full-size rendering is
- * essentially unchanged. Radius and rotation vary per photo on purpose so
- * the ring reads as tossed rather than measured out - a real circle would
- * look CAD-drawn.
- */
 const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: number; rotate: number }[] = [
   { pileX: -1.3, pileY: -0.8, pileRotate: -9, x: -55.1, y: -31.3, rotate: -11 },
   { pileX: 1.0, pileY: 0.7, pileRotate: 7, x: 42.8, y: -39.5, rotate: 8 },
@@ -37,18 +24,10 @@ const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: 
   { pileX: 0, pileY: 1.5, pileRotate: 3, x: 4.1, y: 47.7, rotate: 5 },
 ];
 
-/** Photos finish scattering by this point in the scroll range; the text
-    reveal starts a beat after, so it never appears mid-toss. */
-const SCATTER_END = 0.1;
-const TEXT_START = 0.1;
+const SCATTER_END = 0.35;
+const TEXT_START = 0.4;
+const TEXT_END = 0.7;
 
-/**
- * Base size for the scattered frames. The polaroid-frame utility lays its
- * paper border out in em, so this one value scales the whole border; in
- * container units like the photos themselves, so border and photo shrink
- * together instead of the border holding a fixed rem width and swallowing
- * the print as the layout narrows.
- */
 const FRAME_BASE: CSSProperties = { fontSize: "4.8cqw" };
 
 export function PhotoScatterReveal({ images, children, className }: PhotoScatterRevealProps) {
@@ -60,7 +39,7 @@ export function PhotoScatterReveal({ images, children, className }: PhotoScatter
   });
 
   return (
-    <div ref={containerRef} className={`relative ${className ?? ""}`} style={{ height: "240vh" }}>
+    <div ref={containerRef} className={`relative ${className ?? ""}`} style={{ height: "140vh" }}>
       <div className="@container-size sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         <div className="@container relative flex h-[min(60cqmin,38rem)] w-[min(60cqmin,38rem)] items-center justify-center">
           {images.map((image, i) => (
@@ -119,8 +98,8 @@ function TextReveal({
   progress: MotionValue<number>;
   reduce: boolean | null;
 }) {
-  const opacity = useTransform(progress, [TEXT_START, 1], [0, 1]);
-  const y = useTransform(progress, [TEXT_START, 1], [12, 0]);
+  const opacity = useTransform(progress, [TEXT_START, TEXT_END], [0, 1]);
+  const y = useTransform(progress, [TEXT_START, TEXT_END], [12, 0]);
   const style = reduce ? { opacity: 1 } : { opacity, y };
 
   return (

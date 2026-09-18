@@ -1,6 +1,6 @@
 import type { ExperienceEntry } from "../types";
 
-/ Most recent first. Add a new internship by prepending an entry. */
+// Most recent first. Add a new internship by prepending an entry. */
 export const experiences: ExperienceEntry[] = [
   {
     id: "rbc-amplify-2026",

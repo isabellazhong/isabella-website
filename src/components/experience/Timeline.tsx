@@ -34,8 +34,9 @@ export function Timeline({ entries }: { entries: ExperienceEntry[] }) {
           <Reveal>
             <article className="rounded-2xl border border-line bg-surface-raised p-6 md:p-8">
               {entry.location && <p className="text-sm text-ink-soft">{entry.location}</p>}
-              <h2 className="mt-1 font-display text-xl tracking-tight">{entry.role}</h2>
-              <p className="text-ink-soft">{`${entry.start} - ${entry.end === null ? "Present" : entry.end}` }</p>
+              <h2 className="mt-1 font-display text-xl tracking-tight text-accent">{entry.company}</h2>
+              <p className="mt-1 font-medium text-accent-ink">{entry.role}</p>
+              <p className="text-ink-soft">{`${entry.start} - ${entry.end === null ? "Present" : entry.end}`}</p>
               <p className="mt-3  leading-relaxed text-ink-soft">{entry.summary}</p>
               {entry.highlights && entry.highlights.length > 0 && (
                 <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-sm text-ink-soft">
