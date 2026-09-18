@@ -26,29 +26,37 @@ const LAYOUT: { pileX: number; pileY: number; pileRotate: number; x: number; y: 
 
 const SCATTER_END = 0.35;
 const TEXT_START = 0.4;
-const TEXT_END = 0.7;
+const TEXT_END = 1;
 
 const FRAME_BASE: CSSProperties = { fontSize: "4.8cqw" };
 
 export function PhotoScatterReveal({ images, children, className }: PhotoScatterRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  // Not pinned: the animation plays as the block scrolls up from the bottom of
+  // the viewport to its center, then it scrolls away like ordinary content.
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start end", "center center"],
   });
+  // Photos track scroll directly, so they close back into the pile when you
+  // scroll away. The text latches to the furthest progress reached so it
+  // reveals once and never fades back out.
+  const peak = useRef(0);
+  const textProgress = useTransform(scrollYProgress, (p) => (peak.current = Math.max(peak.current, p)));
 
   return (
-    <div ref={containerRef} className={`relative ${className ?? ""}`} style={{ height: "140vh" }}>
-      <div className="@container-size sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-        <div className="@container relative flex h-[min(60cqmin,38rem)] w-[min(60cqmin,38rem)] items-center justify-center">
-          {images.map((image, i) => (
-            <Photo key={image.src} image={image} layout={LAYOUT[i]} zIndex={images.length - i} progress={scrollYProgress} reduce={reduce} />
-          ))}
-          <TextReveal progress={scrollYProgress} reduce={reduce}>
-            {children}
-          </TextReveal>
-        </div>
+    <div
+      ref={containerRef}
+      className={`@container-size relative flex h-[min(80vh,48rem)] items-center justify-center overflow-hidden ${className ?? ""}`}
+    >
+      <div className="@container relative flex h-[min(60cqmin,38rem)] w-[min(60cqmin,38rem)] items-center justify-center">
+        {images.map((image, i) => (
+          <Photo key={image.src} image={image} layout={LAYOUT[i]} zIndex={images.length - i} progress={scrollYProgress} reduce={reduce} />
+        ))}
+        <TextReveal progress={textProgress} reduce={reduce}>
+          {children}
+        </TextReveal>
       </div>
     </div>
   );
