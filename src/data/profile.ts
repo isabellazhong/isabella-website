@@ -80,15 +80,15 @@ export const contactLinks: ContactLink[] = [
   {
     id: "github",
     label: "GitHub",
-    value: "@your-handle",
+    value: "@isabellazhong",
     url: "https://github.com/isabellazhong",
     icon: "github",
   },
   {
     id: "linkedin",
     label: "LinkedIn",
-    value: "your-name",
-    url: "www.linkedin.com/in/isabella-zhong",
+    value: "isabella-zhong",
+    url: "https://www.linkedin.com/in/isabella-zhong",
     icon: "linkedin",
   },
 ];
