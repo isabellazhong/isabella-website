@@ -3,7 +3,6 @@ import { Resend } from "resend";
 
 /** Where contact-form submissions land. */
 const TO_ADDRESS = "isabellazhong888@gmail.com";
-/** add in domain once verified */
 const FROM_ADDRESS = "Contact Form <contact@isabellazhong.ca>";;
 
 const MAX_NAME = 100;
