@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { ResponsiveImage } from "../image-objects/ResponsiveImage";
 
 /** Scroll fractions (within the scene's own transit through the viewport)
     that drive the slide. The transit is symmetric, so 0.5 always lands when
@@ -12,6 +13,9 @@ const ROLL_IN_START = 0.25;
 const ROLL_IN_END = 0.5;
 const ROLL_OUT_START = 0.67;
 const ROLL_OUT_END = 0.80;
+
+/** Upper bound of the width clamps in LAYERS below. */
+const CLOUD_SIZES = "420px";
 
 interface CloudLayerConfig {
   src: string;
@@ -28,21 +32,21 @@ interface CloudLayerConfig {
 
 const LAYERS: CloudLayerConfig[] = [
   {
-    src: "/animations/cloud_comp/btm_left_back.PNG",
+    src: "/assets/cloud_comp/btm_left_back.PNG",
     side: "left",
     className: "-bottom-[32%] -left-[3%] w-[clamp(190px,38%,380px)]",
     shadow: "0 14px 20px rgba(15,15,20,0.16)",
     zIndex: 1,
   },
   {
-    src: "/animations/cloud_comp/btm_left_front.PNG",
+    src: "/assets/cloud_comp/btm_left_front.PNG",
     side: "left",
     className: "-bottom-[32%] -left-[8%] w-[clamp(210px,42%,420px)]",
     shadow: "0 24px 30px rgba(15,15,20,0.26)",
     zIndex: 2,
   },
   {
-    src: "/animations/cloud_comp/top_right.PNG",
+    src: "/assets/cloud_comp/top_right.PNG",
     side: "right",
     className: "-top-[1%] -right-[10%] w-[clamp(210px,42%,420px)]",
     shadow: "0 20px 28px rgba(15,15,20,0.22)",
@@ -98,17 +102,15 @@ function Cloud({
   );
 
   return (
-    <motion.img
-      src={layer.src}
-      alt=""
-      draggable={false}
-      loading="lazy"
-      className={`absolute select-none ${layer.className}`}
+    <motion.div
+      className={`absolute ${layer.className}`}
       style={{
         zIndex: layer.zIndex,
         filter: `drop-shadow(${layer.shadow})`,
         x: reduce ? "0%" : x,
       }}
-    />
+    >
+      <ResponsiveImage src={layer.src} alt="" sizes={CLOUD_SIZES} draggable={false} className="w-full select-none" />
+    </motion.div>
   );
 }

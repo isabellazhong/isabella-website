@@ -2,8 +2,18 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import type { Carousel } from "../../types";
+import { IMAGE_SIZES } from "../../lib/images";
+import { ResponsiveImage } from "./ResponsiveImage";
 
-export function CarouselView({ object, className }: { object: Carousel; className?: string }) {
+export function CarouselView({
+  object,
+  className,
+  sizes = IMAGE_SIZES.halfColumn,
+}: {
+  object: Carousel;
+  className?: string;
+  sizes?: string;
+}) {
   const [index, setIndex] = useState(0);
   const reduce = useReducedMotion();
   const { images } = object;
@@ -16,16 +26,16 @@ export function CarouselView({ object, className }: { object: Carousel; classNam
     <div className={`polaroid-frame ${className ?? ""}`}>
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.img
+          <motion.div
             key={current.src}
-            src={current.src}
-            alt={current.alt}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0"
             initial={{ opacity: reduce ? 1 : 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: reduce ? 1 : 0 }}
             transition={{ duration: 0.25 }}
-          />
+          >
+            <ResponsiveImage src={current.src} alt={current.alt} sizes={sizes} className="h-full w-full object-cover" />
+          </motion.div>
         </AnimatePresence>
         {images.length > 1 && (
           <>

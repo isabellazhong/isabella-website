@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import type { Neighbor } from "../../lib/graph/ProjectGraph";
 import { formatDate } from "../../lib/format";
 import type { Project } from "../../types";
+import { ResponsiveImage } from "../image-objects/ResponsiveImage";
 import { ProjectLinks } from "./ProjectLinks";
 import { SkillList } from "./SkillList";
 
@@ -40,6 +41,14 @@ const scatterSlots = [
   { place: "-top-8 -right-14", size: "w-36", tilt: "rotate-[7deg]", reveal: "hidden xl:block" },
 ];
 
+/**
+ * ResponsiveImage with motion props. Gallery paths point at src/assets, which
+ * only exists as the optimised variants ResponsiveImage resolves, so a plain
+ * <img> here would 404. The tacked photos are at most w-66 (264px) wide.
+ */
+const MotionPhoto = motion.create(ResponsiveImage);
+const photoSizes = "264px";
+
 /** The lifted-off-the-board shadow every tacked photo shares. */
 const photoShadow =
   "shadow-[0_10px_20px_-8px_rgba(0,0,0,0.25),0_25px_40px_-15px_rgba(0,0,0,0.3)]";
@@ -71,10 +80,11 @@ export function ProjectPanel({ project, index, total, neighbors, onSelectNeighbo
       {gallery.map((photo, photoIndex) => {
         const slot = scatterSlots[photoIndex % scatterSlots.length];
         return (
-          <motion.img
+          <MotionPhoto
             key={`${project.id}-${photoIndex}`}
             src={photo.src}
             alt=""
+            sizes={photoSizes}
             aria-hidden="true"
             initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}

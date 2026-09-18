@@ -1,9 +1,14 @@
+import { IMAGE_SIZES } from "../../lib/images";
+import { ResponsiveImage } from "./ResponsiveImage";
+
 export interface PolaroidImageProps {
   src: string;
   alt: string;
   /** Optional handwritten-style caption, set into the frame's bottom strip. */
   caption?: string;
   className?: string;
+  /** Rendered width hint (see IMAGE_SIZES); defaults to half a content column. */
+  sizes?: string;
 }
 
 /**
@@ -13,10 +18,10 @@ export interface PolaroidImageProps {
  * in anywhere a plain framed photo is needed without joining the
  * ImageObject/ContentBlock system.
  */
-export function PolaroidImage({ src, alt, caption, className }: PolaroidImageProps) {
+export function PolaroidImage({ src, alt, caption, className, sizes = IMAGE_SIZES.halfColumn }: PolaroidImageProps) {
   return (
     <figure className={`polaroid-frame relative ${className ?? ""}`}>
-      <img src={src} alt={alt} loading="lazy" className="aspect-[4/3] w-full rounded-lg" />
+      <ResponsiveImage src={src} alt={alt} sizes={sizes} className="aspect-[4/3] w-full rounded-lg" />
       {caption && (
         <figcaption className="absolute inset-x-3 bottom-2 text-center font-display text-sm text-ink-soft">
           {caption}

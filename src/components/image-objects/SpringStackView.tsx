@@ -1,9 +1,19 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { SpringStack } from "../../types";
+import { IMAGE_SIZES } from "../../lib/images";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 /** Fanned stack of images; clicking springs the top card to the back. */
-export function SpringStackView({ object, className }: { object: SpringStack; className?: string }) {
+export function SpringStackView({
+  object,
+  className,
+  sizes = IMAGE_SIZES.halfColumn,
+}: {
+  object: SpringStack;
+  className?: string;
+  sizes?: string;
+}) {
   const { images, variant = "polaroid" } = object;
   const [order, setOrder] = useState<number[]>(() => images.map((_, i) => i));
   const reduce = useReducedMotion();
@@ -36,10 +46,10 @@ export function SpringStackView({ object, className }: { object: SpringStack; cl
             }}
             transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 200, damping: 22 }}
           >
-            <img
+            <ResponsiveImage
               src={image.src}
               alt={image.alt}
-              loading="lazy"
+              sizes={sizes}
               draggable={false}
               className={`h-full w-full object-cover ${variant === "plain" ? "rounded-sm" : "rounded-lg"}`}
             />

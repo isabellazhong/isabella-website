@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { ImageAsset } from "../../types";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 export interface PhotoScatterRevealProps {
   /** Exactly 5 photos: piled at the center, then scattered into a loose ring. */
@@ -10,6 +11,10 @@ export interface PhotoScatterRevealProps {
   children: ReactNode;
   className?: string;
 }
+
+/** Each photo is capped at 33cqw of an anchor box that is itself at most
+    38rem wide, so it never renders wider than ~200px. */
+const PHOTO_SIZES = "200px";
 
 /**
  * Hand-placed pile and scatter positions for 5 photos, in cqw (percent of
@@ -94,10 +99,10 @@ function Photo({
 
   return (
     <motion.div className="polaroid-frame absolute" style={style}>
-      <img
+      <ResponsiveImage
         src={image.src}
         alt={image.alt}
-        loading="lazy"
+        sizes={PHOTO_SIZES}
         draggable={false}
         className="h-auto w-auto max-w-[33cqw] max-h-[44cqw]"
       />

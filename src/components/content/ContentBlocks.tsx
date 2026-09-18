@@ -1,5 +1,6 @@
 import type { ContentBlock, ImageObject, TextContentBlock } from "../../types";
 import { ImageObjectView } from "../image-objects/ImageObjectView";
+import { IMAGE_SIZES } from "../../lib/images";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 import { ListBlock } from "../blocks/ListBlock";
 import { LatexBlock } from "../blocks/LatexBlock";
@@ -16,9 +17,13 @@ function unframed(image: ImageObject): ImageObject {
     : image;
 }
 
-/** Renders one text-only block. Shared by the top-level list and the text
-    column of a text-image block. */
-function renderTextBlock(block: TextContentBlock, key: string) {
+/**
+ * Renders one text-only block. Shared by the top-level list and the text
+ * column of a text-image block. Paragraphs span the page when they stand
+ * alone or sit above/below an image; only beside an image are they capped at
+ * a comfortable measure, since the column is already half the page.
+ */
+function renderTextBlock(block: TextContentBlock, key: string, fullWidth: boolean) {
   switch (block.kind) {
     case "heading":
       return (
@@ -28,7 +33,7 @@ function renderTextBlock(block: TextContentBlock, key: string) {
       );
     case "paragraph":
       return (
-        <p key={key} className="max-w-[65ch] leading-relaxed text-ink-soft">
+        <p key={key} className={`${fullWidth ? "w-full" : "max-w-[65ch]"} leading-relaxed text-ink-soft`}>
           {block.text}
         </p>
       );
@@ -58,11 +63,11 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
           case "paragraph":
           case "list":
           case "latex":
-            return renderTextBlock(block, key);
+            return renderTextBlock(block, key, true);
           case "image":
             return (
               <figure key={key} className="flex flex-col gap-2">
-                <ImageObjectView object={unframed(block.image)} />
+                <ImageObjectView object={unframed(block.image)} sizes={IMAGE_SIZES.fullColumn} />
                 {block.caption && <figcaption className="text-sm text-ink-soft">{block.caption}</figcaption>}
               </figure>
             );
@@ -75,7 +80,8 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
               </figure>
             );
           }
-          case "text-image":
+          case "text-image": {
+            const stacked = block.textSide === "top" || block.textSide === "bottom";
             return (
               <TextImageBlock
                 key={key}
@@ -85,9 +91,10 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
                 titleSize={block.titleSize}
                 position={block.position}
               >
-                {toTextBlocks(block.text).map((b, j) => renderTextBlock(b, `${key}-${b.kind}-${j}`))}
+                {toTextBlocks(block.text).map((b, j) => renderTextBlock(b, `${key}-${b.kind}-${j}`, stacked))}
               </TextImageBlock>
             );
+          }
         }
       })}
     </div>

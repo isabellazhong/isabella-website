@@ -9,6 +9,8 @@ import { PhotoScatterView } from "./PhotoScatterView";
 export interface ImageObjectViewProps {
   object: ImageObject;
   className?: string;
+  /** Rendered width hint for still images (see IMAGE_SIZES); defaults to half a content column. */
+  sizes?: string;
 }
 
 /**
@@ -16,16 +18,16 @@ export interface ImageObjectViewProps {
  * image object types: after adding a variant to the entity union, add its
  * case here and TypeScript stops flagging the switch as non-exhaustive.
  */
-export function ImageObjectView({ object, className }: ImageObjectViewProps) {
+export function ImageObjectView({ object, className, sizes }: ImageObjectViewProps) {
   switch (object.kind) {
     case "single":
-      return <SingleImageView object={object} className={className} />;
+      return <SingleImageView object={object} className={className} sizes={sizes} />;
     case "video":
       return <VideoView object={object} className={className} />;
     case "carousel":
-      return <CarouselView object={object} className={className} />;
+      return <CarouselView object={object} className={className} sizes={sizes} />;
     case "spring-stack":
-      return <SpringStackView object={object} className={className} />;
+      return <SpringStackView object={object} className={className} sizes={sizes} />;
     case "frame-sequence":
       return <FrameSequenceView object={object} className={className} />;
     case "photo-scatter":

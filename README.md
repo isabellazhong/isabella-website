@@ -29,7 +29,14 @@ src/
   pages/           # one component per route
   lib/             # small utilities
     graph/         # the projects similarity graph: ProjectGraph, layout, projection, focus layout
+  assets/          # still images (png/jpg); resized + converted to WebP at build time
 ```
+
+## Images
+
+Put stills in `src/assets/` and reference them from data by URL as if they were in `public/`: `src/assets/art/koi.jpg` is `{ src: "/assets/art/koi.jpg", alt: "..." }`. At build time `vite-imagetools` emits 480/960/1440/1920px WebP variants and `ResponsiveImage` (used by every image view) picks the smallest one that covers the rendered size via `srcset`/`sizes` -- the Vite equivalent of Next's `<Image>`. Videos and the canvas frame sequences stay in `public/` and are served as-is.
+
+Everything Vite emits lands in `dist/static/` with a content hash in the filename, so `public/_headers` (Netlify, Cloudflare Pages) and `vercel.json` tell browsers to cache that folder for a year and revalidate everything else. GitHub Pages ignores both.
 
 Routes: `/`, `/experience`, `/projects`, `/projects/:projectId`, `/blogs`, `/blogs/:folderId`, `/blogs/:folderId/:postId`, `/contact`.
 

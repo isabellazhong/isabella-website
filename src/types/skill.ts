@@ -7,7 +7,7 @@
  * similarity matches on the normalized name, so labelling React a "library" in
  * one project and a "framework" in another still counts as the same skill.
  */
-export type SkillCategory = "language" | "framework" | "library" | "tool";
+export type SkillCategory = "language" | "framework" | "library" | "database" | "tool";
 
 export interface Skill {
   name: string;
@@ -15,11 +15,12 @@ export interface Skill {
 }
 
 /** Display order and headings for the grouped skill list on the info panel. */
-export const SKILL_CATEGORY_ORDER: SkillCategory[] = ["language", "framework", "library", "tool"];
+export const SKILL_CATEGORY_ORDER: SkillCategory[] = ["language", "framework", "library", "database", "tool"];
 
 export const SKILL_CATEGORY_LABELS: Record<SkillCategory, string> = {
   language: "Languages",
   framework: "Frameworks",
   library: "Libraries",
+  database: "Databases",
   tool: "Tools",
 };
