@@ -15,7 +15,7 @@ export const blogFolders: BlogFolder[] = [
         id: "adam",
         title: "The Bug: Adam vs. AdamW Optimizers",
         date: "2026-09-19",
-        summary: "AdamW is the standard optimizer used today. Explore what the small bug in Adam was that created AdamW.",
+        summary: "AdamW is the standard optimizer used today. Explore what the small bug in Adam was that led AdamW to be born.",
         content: [
           {
             kind: "paragraph",
