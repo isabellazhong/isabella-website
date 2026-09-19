@@ -1,4 +1,4 @@
-import type { ContactLink, Hobby, ImageObject, LandingContent } from "../types";
+import type { ContactLink, ImageObject, LandingContent } from "../types";
 
 export const SITE_NAME = "Isabella Zhong";
 

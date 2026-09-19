@@ -1,14 +1,5 @@
 import type { ImageObject } from "./image-object";
 
-/** A hobby or interest card in the about section. */
-export interface Hobby {
-  id: string;
-  name: string;
-  blurb: string;
-  /** Optional visual if a hobby deserves more than a text card. */
-  image?: ImageObject;
-}
-
 /** One way to reach you, rendered as a card on the contact page. */
 export interface ContactLink {
   id: string;
