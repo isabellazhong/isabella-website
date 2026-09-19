@@ -125,7 +125,7 @@ export const blogFolders: BlogFolder[] = [
           },
           {
             kind: "paragraph",
-            text: "Pretty simple right? The extra 'W' in AdamW basically says it's the Adam optimizer but with Weight Decay fixed :)"
+            text: "Pretty simple right? The extra 'W' in AdamW basically says it's the Adam optimizer but with (W)eight decay fixed :)"
           }
         ],
       },
