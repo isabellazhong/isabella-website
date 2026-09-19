@@ -22,6 +22,9 @@ export type ListStyle = "bullet" | "number";
  */
 export type TextContentBlock =
   | { kind: "heading"; text: string }
+  /** Prose. Inline math goes between $...$ (e.g. "Let $\\beta_1$ be...");
+      double every backslash in string literals, or use String.raw. A literal
+      dollar sign is written as \$. Lists accept the same syntax. */
   | { kind: "paragraph"; text: string }
   /** A bulleted or numbered list with an optional title, written as
       { kind: "list", items: ["...", "..."] }. Defaults to bullets. */

@@ -4,6 +4,7 @@ import { IMAGE_SIZES } from "../../lib/images";
 import { TextImageBlock } from "../blocks/TextImageBlock";
 import { ListBlock } from "../blocks/ListBlock";
 import { LatexBlock } from "../blocks/LatexBlock";
+import { InlineMath } from "../blocks/InlineMath";
 
 /**
  * Photos set into a write-up read as illustrations rather than as prints on a
@@ -34,7 +35,7 @@ function renderTextBlock(block: TextContentBlock, key: string, fullWidth: boolea
     case "paragraph":
       return (
         <p key={key} className={`${fullWidth ? "w-full" : "max-w-[65ch]"} leading-relaxed text-ink-soft`}>
-          {block.text}
+          <InlineMath text={block.text} />
         </p>
       );
     case "list":

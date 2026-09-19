@@ -21,7 +21,7 @@ export const landing: LandingContent = {
 export const aboutParagraphs = [
   `My name is Isabella and I am currently in my third year studying Computer Science and Cognitive Science double degree @ the University of Toronto. 
   I have been very interested into AI/ML as of late and have been going in depth on the fundamentals such as transformers, optimizers, weight decay functions, etc. 
-  You can follow my progress [here](/blogs) :) 
+  You can follow my progress [here](/blogs/machine-learning) :) 
   `, `Apart from work and academics, I love unleashing my creative side in forms of paintings, sketches, etc. In fact, the animation in the landing page is drawn by me!
    (which takes a lot longer than it looks... I hold a lot of respect for animators). I also enjoy cooking and watching tons of movies!! 
   `
@@ -59,15 +59,6 @@ export const photoScatterShowcase: ImageObject = {
   ],
   text: "Some of my artworks!",
 };
-
-
-
-export const hobbies: Hobby[] = [
-  { id: "hobby-1", name: "Hobby one", blurb: "One line on what it is and why you love it." },
-  { id: "hobby-2", name: "Hobby two", blurb: "One line on what it is and why you love it." },
-  { id: "hobby-3", name: "Hobby three", blurb: "One line on what it is and why you love it." },
-  { id: "hobby-4", name: "Hobby four", blurb: "One line on what it is and why you love it." },
-];
 
 export const contactLinks: ContactLink[] = [
   {

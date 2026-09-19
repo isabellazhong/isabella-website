@@ -1,4 +1,5 @@
 import type { ListStyle } from "../../types";
+import { InlineMath } from "./InlineMath";
 
 export interface ListBlockProps {
   /** "bullet" renders a <ul>, "number" an <ol>. Defaults to "bullet". */
@@ -27,7 +28,7 @@ export function ListBlock({ style = "bullet", title, items, className }: ListBlo
       <Tag className={`${LIST_STYLE_CLASS[style]} max-w-[65ch] flex flex-col gap-2 pl-6 leading-relaxed text-ink-soft marker:text-ink`}>
         {items.map((item, i) => (
           <li key={i} className="pl-1">
-            {item}
+            <InlineMath text={item} />
           </li>
         ))}
       </Tag>
